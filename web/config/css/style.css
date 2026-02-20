@@ -1,0 +1,309 @@
+    @font-face {
+      font-family: "GT Haptik";
+      src: url("../font/GT-Haptik-Regular-Trial.otf") format("opentype");
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+    }
+
+    :root{
+      --bg: #e6e6e6;
+      --panel: #ffffff;
+      --chip: #ffffff;
+      --chip-border: #000000;
+      --line: #000000;
+      --text: #000000;
+      --ro: #e6e6e6;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "GT Haptik", "Avenir Next", "Trebuchet MS", sans-serif;
+    }
+
+    .app {
+      max-width: 1280px;
+      margin: 24px auto;
+      padding: 0 20px 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 400;
+    }
+
+    .sub {
+      margin: 4px 0 0;
+      font-size: 15px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    button, input, select {
+      font: inherit;
+      color: var(--text);
+    }
+
+    .btn {
+      height: 32px;
+      border: 1.4px solid var(--chip-border);
+      border-radius: 8px;
+      background: var(--chip);
+      padding: 0 12px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .not-connected-state{
+      min-height: calc(100vh - 180px);
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      line-height: 1;
+      color: #333333;
+    }
+
+    .groups {
+      display: grid;
+      gap: 12px;
+    }
+
+    .group {
+      border: 1.4px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .group-title {
+      margin: 0 0 10px;
+      font-size: 50px;
+      line-height: 1;
+      font-weight: 400;
+    }
+
+    .group-list {
+      display: grid;
+      gap: 10px;
+    }
+    .preset-controls{
+      display: grid;
+      gap: 8px;
+    }
+    .preset-row{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .preset-select,
+    .preset-input{
+      height: 32px;
+      border: 1.4px solid var(--chip-border);
+      border-radius: 8px;
+      background: var(--chip);
+      padding: 0 10px;
+      font-size: 15px;
+      min-width: 180px;
+    }
+    .preset-select{
+      min-width: 240px;
+    }
+    .preset-status{
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333333;
+    }
+    .preset-status:empty{
+      display: none;
+    }
+
+    .empty {
+      height: 42px;
+      border: 1.4px solid var(--line);
+      border-radius: 10px;
+      background: var(--chip);
+      display: grid;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 15px;
+    }
+
+    .sensor-row {
+      border: 1.4px solid var(--line);
+      border-radius: 10px;
+      background: var(--panel);
+      padding: 8px;
+    }
+    .sensor-row.type-none{
+      background: var(--ro);
+    }
+    .sensor-row.type-none .chip{
+      background: var(--ro);
+    }
+    .normal .chip{
+      background: var(--ro);
+    }
+    .normal-edit-wrap .btn,
+    .edit-close-wrap .btn,
+    .edit-actions .btn{
+      background: #ffffff;
+    }
+
+    .normal {
+      display: grid;
+      gap: 6px;
+    }
+
+    .normal-top{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      position: relative;
+      padding-right: 90px; /* reserviert Platz für "edit" */
+      min-height: 32px;
+    }
+    .normal-edit-wrap{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 80px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .normal-edit-wrap .btn{
+      min-width: 80px;
+    }
+
+    .normal-bottom{ display:none; }
+
+    .chip{
+      height: 32px;
+      border: 1.4px solid var(--chip-border);
+      border-radius: 8px;
+      background: var(--chip);
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 15px;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .chip.ro{
+      background: var(--ro);
+    }
+    .chip.port{ width:auto; min-width:52px; justify-content:center; }
+    .chip.type,.chip.name{ width:auto; }
+    .chip.value{ width:140px; }
+    .chip.value-fixed,.chip.raw-fixed{ width:140px; }
+    .chip.value.wide,.chip.value-fixed.wide,.chip.raw-fixed.wide{ width:220px; }
+
+    .sensor-row.editing{ padding: 10px; }
+    .edit{ display:none; gap:10px; }
+    .sensor-row.editing .normal { display: none; }
+    .sensor-row.editing .edit{ display:grid; }
+
+    .edit-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      align-items:center;
+      position: relative;
+      padding-right: 120px; /* reserviert Platz für "close edit" */
+      min-height: 32px;
+    }
+
+    .eField{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+    .eField label{
+      font-size: 15px;
+      line-height: 1;
+    }
+
+    .eCtrl{
+      height: 32px;
+      border: 1.4px solid var(--chip-border);
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 0 10px;
+      font-size: 15px;
+      line-height: 1;
+      min-width: 140px;
+    }
+    input.eCtrl, select.eCtrl{
+      border: 1.4px solid var(--chip-border);
+    }
+    select.eCtrl{ padding-right: 28px; }
+
+    .edit-params{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 14px;
+      align-items:center;
+    }
+
+    .edit-close-wrap{
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 110px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .edit-close-wrap .btn{
+      min-width: 110px;
+    }
+
+    .edit-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:8px;
+    }
+
+    .status-error {
+      color: #b22c2c;
+    }
+
+    .log {
+      margin-top: 12px;
+      border: 1.4px solid var(--line);
+      border-radius: 12px;
+      background: #e3e3e3;
+      padding: 8px;
+      min-height: 90px;
+      max-height: 220px;
+      overflow: auto;
+      font-size: 12px;
+      white-space: pre-wrap;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+    }
+
+    @media (max-width: 1160px) {
+      .chip, .chip.port, .chip.type, .chip.name, .chip.value { width: auto; }
+      .edit-bar, .edit-params { gap: 8px; }
+      .eCtrl { min-width: 120px; }
+    }

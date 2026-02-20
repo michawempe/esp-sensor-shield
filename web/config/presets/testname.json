@@ -1,0 +1,69 @@
+{
+  "A1": {
+    "type": "button",
+    "name": "testname1"
+  },
+  "A2": {
+    "type": "switch",
+    "name": "switch1"
+  },
+  "B1": {
+    "type": "distance",
+    "name": "distance1",
+    "inMin": 15,
+    "inMax": 150,
+    "outMin": 0,
+    "outMax": 1
+  },
+  "B2": {
+    "type": "magnet",
+    "name": "magnet1",
+    "inMin": 0,
+    "inMax": 4095,
+    "outMin": 0,
+    "outMax": 100
+  },
+  "B3": {
+    "type": "slider",
+    "name": "slider1",
+    "inMin": 0,
+    "inMax": 4095,
+    "outMin": 0,
+    "outMax": 1
+  },
+  "B4": {
+    "type": "sound",
+    "name": "sound1",
+    "inMin": 100,
+    "inMax": 4095,
+    "outMin": 0,
+    "outMax": 1
+  },
+  "B5": {
+    "type": "light",
+    "name": "light1",
+    "inMin": 0,
+    "inMax": 4095,
+    "outMin": 0,
+    "outMax": 1
+  },
+  "C1": {
+    "type": "encoder",
+    "name": "encoder1",
+    "fullRotation": 360,
+    "modulo": false
+  },
+  "C2": {
+    "type": "joystick",
+    "name": "joystick1",
+    "midCutoff": 100,
+    "edgeCutoff": 0,
+    "outMin": -1,
+    "outMax": 1
+  },
+  "D1": {
+    "type": "touch",
+    "name": "touch1",
+    "threshold": 50000
+  }
+}

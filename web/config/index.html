@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ESP32 Sensor Config Page</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div>
+        <h1>ilab ESP32-S3 SENSOR BOARD</h1>
+      </div>
+      <div>
+        <button id="btnConnect" class="btn">Connect</button>
+      </div>
+    </header>
+
+    <section id="notConnectedState" class="not-connected-state">not connected</section>
+
+    <section id="groupsSection" class="groups" hidden>
+      <article class="group"><h2 class="group-title">A</h2><div id="groupA" class="group-list"></div></article>
+      <article class="group"><h2 class="group-title">B</h2><div id="groupB" class="group-list"></div></article>
+      <article class="group"><h2 class="group-title">C</h2><div id="groupC" class="group-list"></div></article>
+      <article class="group"><h2 class="group-title">D</h2><div id="groupD" class="group-list"></div></article>
+      <article class="group">
+        <h2 class="group-title">Presets</h2>
+        <div class="preset-controls">
+          <div class="preset-row">
+            <select id="presetSelect" class="preset-select"></select>
+            <button id="btnLoadPreset" class="btn">Load Preset</button>
+          </div>
+          <div class="preset-row">
+            <input id="presetNameInput" class="preset-input" type="text" placeholder="new_preset.json" />
+            <button id="btnSavePreset" class="btn">Save Current</button>
+          </div>
+        </div>
+        <div id="presetStatus" class="preset-status"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="js/shared-core.js"></script>
+  <script src="js/shared-serial.js"></script>
+  <script src="js/shared-presets.js"></script>
+  <script src="js/configpage-editor.js"></script>
+  <script src="js/configpage.js"></script>
+</body>
+</html>
