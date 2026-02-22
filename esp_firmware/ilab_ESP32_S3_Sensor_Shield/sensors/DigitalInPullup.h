@@ -28,6 +28,8 @@ public:
     appendQuoted(json, sensorType);
     json += ",\"port\":";
     appendQuoted(json, portId);
+    json += ",\"raw\":";
+    json += value;
     json += ",\"value\":";
     json += value;
     json += "}";

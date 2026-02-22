@@ -48,7 +48,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 70px;
       flex-wrap: wrap;
     }
 
@@ -83,7 +83,11 @@
 
     .groups {
       display: grid;
-      gap: 12px;
+      gap: 15px;
+    }
+
+    .groups > .group:last-child {
+      margin-top: 55px;
     }
 
     .group {
@@ -95,14 +99,16 @@
 
     .group-title {
       margin: 0 0 10px;
-      font-size: 50px;
+      font-size: 35px;
       line-height: 1;
       font-weight: 400;
     }
 
     .group-list {
-      display: grid;
+      display: flex;
+      flex-wrap: wrap;
       gap: 10px;
+      align-items: flex-start;
     }
     .preset-controls{
       display: grid;
@@ -152,12 +158,39 @@
       border-radius: 10px;
       background: var(--panel);
       padding: 8px;
+      width: 100%;
+      order: 1;
     }
     .sensor-row.type-none{
-      background: var(--ro);
+      background: var(--panel);
+      width: fit-content;
+      min-width: 0;
+      order: 2;
+      padding: 6px;
     }
     .sensor-row.type-none .chip{
       background: var(--ro);
+    }
+    .sensor-row.type-none .chip.type,
+    .sensor-row.type-none .chip.name,
+    .sensor-row.type-none .chip.value{
+      display: none;
+    }
+    .sensor-row.type-none .normal-top{
+      padding-right: 0;
+      gap: 6px;
+      flex-wrap: nowrap;
+    }
+    .sensor-row.type-none .normal{
+      width: fit-content;
+    }
+    .sensor-row.type-none .normal-edit-wrap{
+      position: static;
+      width: auto;
+      margin-left: 0;
+    }
+    .sensor-row.type-none .normal-edit-wrap .btn{
+      min-width: 58px;
     }
     .normal .chip{
       background: var(--ro);
@@ -219,7 +252,11 @@
     .chip.value-fixed,.chip.raw-fixed{ width:140px; }
     .chip.value.wide,.chip.value-fixed.wide,.chip.raw-fixed.wide{ width:220px; }
 
-    .sensor-row.editing{ padding: 10px; }
+    .sensor-row.editing{
+      padding: 10px;
+      width: 100% !important;
+      background: var(--panel);
+    }
     .edit{ display:none; gap:10px; }
     .sensor-row.editing .normal { display: none; }
     .sensor-row.editing .edit{ display:grid; }
@@ -275,7 +312,7 @@
       justify-content: flex-end;
     }
     .edit-close-wrap .btn{
-      min-width: 110px;
+      min-width: 80px;
     }
 
     .edit-actions{

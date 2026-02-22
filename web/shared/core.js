@@ -19,22 +19,6 @@ const ILAB_BLOCKED_USB_FILTERS = [
   { usbVendorId: 0x303a, usbProductId: 0x1002 },
 ];
 
-function canonicalParamKey(key) {
-  const map = {
-    inmin: "inMin",
-    inmax: "inMax",
-    outmin: "outMin",
-    outmax: "outMax",
-    midcutoff: "midCutoff",
-    edgecutoff: "edgeCutoff",
-    fullrotation: "fullRotation",
-  };
-  const raw = String(key || "").trim();
-  const compact = raw.replace(/[_\-\s]/g, "");
-  const lower = compact.toLowerCase();
-  return map[lower] || raw;
-}
-
 function allowedTypesForPort(portId, portTypeOptions = PORT_TYPE_OPTIONS_BASE, fallback = []) {
   const group = String(portId || "").charAt(0).toUpperCase();
   return portTypeOptions[group] || fallback;
@@ -59,7 +43,7 @@ function mapRuntimeDataToPortConfig(
     for (const [key, value] of Object.entries(sensor)) {
       if (["type", "port", "value", "raw"].includes(key)) continue;
       if (["string", "number", "boolean"].includes(typeof value)) {
-        entry[canonicalParamKey(key)] = value;
+        entry[key] = value;
       }
     }
     mapped[portId] = entry;
@@ -101,7 +85,7 @@ function buildPayloadFromPresetObject(
     for (const [key, value] of Object.entries(entry)) {
       if (key === "type" || key === "name") continue;
       if (["string", "number", "boolean"].includes(typeof value)) {
-        out[canonicalParamKey(key)] = value;
+        out[key] = value;
       }
     }
     payload[portId] = out;
@@ -198,7 +182,6 @@ export {
   PRESET_FOLDER_PICKER_ID,
   ILAB_ALLOWED_USB_FILTERS,
   ILAB_BLOCKED_USB_FILTERS,
-  canonicalParamKey,
   allowedTypesForPort,
   mapRuntimeDataToPortConfig,
   coercePresetObject,

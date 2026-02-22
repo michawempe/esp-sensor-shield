@@ -2,14 +2,8 @@ function createEditor({
   Shared,
   PORT_ORDER,
   PORT_TYPE_OPTIONS,
-  TYPE_EDIT_FIELDS,
-  PARAM_INPUT_ORDER,
-  PARAM_LABELS,
-  NUMERIC_PARAM_FIELDS,
-  BOOLEAN_PARAM_FIELDS,
   groups,
   coercePresetObject,
-  canonicalParamKey,
   isConnected,
   sendPayload,
   logLine,
@@ -75,7 +69,7 @@ function createEditor({
     for (const [key, value] of Object.entries(entry)) {
       if (key === "type" || key === "name") continue;
       if (["string", "number", "boolean"].includes(typeof value)) {
-        normalized[canonicalParamKey(key)] = value;
+        normalized[key] = value;
       }
     }
     return normalized;
@@ -155,9 +149,10 @@ function createEditor({
     const portId = ref.portId;
     const cfg = configByPort.get(portId) || { type: "none", name: "" };
     const sensor = sensorByPort.get(portId);
+    const isUnused = (cfg.type || "none") === "none";
 
     ref.row.classList.remove("editing");
-    ref.row.classList.toggle("type-none", (cfg.type || "none") === "none");
+    ref.row.classList.toggle("type-none", isUnused);
     ref.edit.innerHTML = "";
     ref.editLive = null;
 
@@ -166,6 +161,7 @@ function createEditor({
     ref.nameChip.textContent = `name: ${cfg.name || "-"}`;
     ref.valueChip.textContent = `value: ${fmt(sensor?.value)}`;
     ref.valueChip.classList.toggle("wide", (cfg.type || "") === "joystick");
+    ref.btnEdit.textContent = isUnused ? "add" : "edit";
   }
 
   async function sendConfig(stayEditing = false) {
@@ -182,7 +178,9 @@ function createEditor({
     const sensor = sensorByPort.get(portId);
 
     ref.row.classList.add("editing");
-    ref.row.classList.toggle("type-none", (editDraft?.type || "none") === "none");
+    // While editing, treat the row as active so ordering stays stable
+    // (no jump after choosing a type).
+    ref.row.classList.remove("type-none");
     ref.edit.innerHTML = "";
 
     const bar = document.createElement("div");
@@ -275,7 +273,7 @@ function createEditor({
     closeWrap.className = "edit-close-wrap";
     const close = document.createElement("button");
     close.className = "btn";
-    close.textContent = "close edit";
+    close.textContent = "close";
     close.addEventListener("click", () => exitEdit(false));
     closeWrap.append(close);
     bar.appendChild(closeWrap);
@@ -284,25 +282,24 @@ function createEditor({
 
     const params = document.createElement("div");
     params.className = "edit-params";
-    const declaredFields = TYPE_EDIT_FIELDS[editDraft.type] || [];
     const existingKeys = Object.keys(editDraft).filter((k) => !["type", "name"].includes(k));
-    const keysToShow = Array.from(new Set([...declaredFields, ...existingKeys])).sort((a, b) => {
-      const ia = PARAM_INPUT_ORDER.indexOf(a);
-      const ib = PARAM_INPUT_ORDER.indexOf(b);
-      if (ia === -1 && ib === -1) return a.localeCompare(b);
-      if (ia === -1) return 1;
-      if (ib === -1) return -1;
-      return ia - ib;
-    });
+    const keysToShow = existingKeys.sort((a, b) => a.localeCompare(b));
+
+    if (keysToShow.length === 0 && editDraft.type !== "none" && pendingEditSync?.port === portId) {
+      const waiting = document.createElement("div");
+      waiting.className = "chip ro";
+      waiting.textContent = "waiting for defaults from ESP...";
+      params.appendChild(waiting);
+    }
 
     const mkParam = (modelKey) => {
       const wrap = document.createElement("div");
       wrap.className = "eField";
       const lab = document.createElement("label");
-      lab.textContent = `${PARAM_LABELS[modelKey] || modelKey}:`;
+      lab.textContent = `${modelKey}:`;
       const val = editDraft[modelKey];
 
-      if (BOOLEAN_PARAM_FIELDS.has(modelKey) || typeof val === "boolean") {
+      if (typeof val === "boolean") {
         const sel = document.createElement("select");
         sel.className = "eCtrl";
         sel.innerHTML = '<option value="">-</option><option value="true">true</option><option value="false">false</option>';
@@ -320,7 +317,7 @@ function createEditor({
 
       const inp = document.createElement("input");
       inp.className = "eCtrl";
-      if (NUMERIC_PARAM_FIELDS.has(modelKey) || typeof val === "number") {
+      if (typeof val === "number") {
         inp.type = "number";
         inp.step = "any";
         inp.value = Number.isFinite(val) ? String(val) : "";

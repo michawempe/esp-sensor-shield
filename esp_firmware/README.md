@@ -44,7 +44,7 @@ Each frame:
 Rules:
 - Output key is sensor `name`
 - Always includes `type`, `port`, `value`
-- `raw` is present for all except `button` and `switch`
+- `raw` is present for all sensors (for `button`/`switch` identical to `value`)
 - Active parameters are echoed without wrapper
 
 ## Boot + Persistency

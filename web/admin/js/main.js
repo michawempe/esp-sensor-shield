@@ -3,7 +3,6 @@ import {
   PORT_TYPE_OPTIONS_WITH_NONE,
   PRESET_FOLDER_PICKER_ID,
   allowedTypesForPort,
-  canonicalParamKey,
   coercePresetObject,
   resolveIlabPortForConnect,
 } from "../../shared/core.js";
@@ -11,30 +10,6 @@ import { AckTracker, SerialJsonClient } from "../../shared/serial.js";
 import { listRelativePresetNames, loadRelativePresetObject } from "../../shared/presets.js";
 import { createEditor } from "./editor.js";
 
-const TYPE_EDIT_FIELDS = {
-  button: [],
-  switch: [],
-  slider: ["inMin", "inMax", "outMin", "outMax"],
-  light: ["inMin", "inMax", "outMin", "outMax"],
-  sound: ["inMin", "inMax", "outMin", "outMax"],
-  distance: ["inMin", "inMax", "outMin", "outMax"],
-  magnet: ["inMin", "inMax", "outMin", "outMax"],
-  joystick: ["midCutoff", "edgeCutoff", "outMin", "outMax"],
-  touch: ["threshold"],
-  encoder: ["fullRotation", "modulo"],
-};
-const PARAM_INPUT_ORDER = ["inMin", "inMax", "outMin", "outMax", "midCutoff", "edgeCutoff", "threshold", "fullRotation", "modulo"];
-const PARAM_LABELS = {
-  inMin: "inmin",
-  inMax: "inmax",
-  outMin: "outmin",
-  outMax: "outmax",
-  midCutoff: "midcutoff",
-  edgeCutoff: "edgecutoff",
-  fullRotation: "fullrotation",
-};
-const NUMERIC_PARAM_FIELDS = new Set(["inMin", "inMax", "outMin", "outMax", "midCutoff", "edgeCutoff", "threshold", "fullRotation"]);
-const BOOLEAN_PARAM_FIELDS = new Set(["modulo"]);
 const RELATIVE_PRESET_DIR_URL = "presets/";
 
 function init() {
@@ -78,11 +53,6 @@ function init() {
     Shared: { allowedTypesForPort },
     PORT_ORDER,
     PORT_TYPE_OPTIONS: PORT_TYPE_OPTIONS_WITH_NONE,
-    TYPE_EDIT_FIELDS,
-    PARAM_INPUT_ORDER,
-    PARAM_LABELS,
-    NUMERIC_PARAM_FIELDS,
-    BOOLEAN_PARAM_FIELDS,
     groups,
     coercePresetObject: (raw) =>
       coercePresetObject(raw, {
@@ -90,7 +60,6 @@ function init() {
         portTypeOptions: PORT_TYPE_OPTIONS_WITH_NONE,
         noneType: "none",
       }),
-    canonicalParamKey,
     isConnected: () => serialClient.isConnected(),
     sendPayload,
     logLine,
