@@ -3,14 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Default Test</title>
+  <title>My Frontend</title>
   <script type="module" src="js/main.js"></script>
 </head>
 <body>
-  <div>button1: <span id="v-button1">-</span></div>
-  <div>slider1: <span id="v-slider1">-</span></div>
-  <div>distance1: <span id="v-distance1">-</span></div>
-  <div>joystick1: <span id="v-joystick1">-</span></div>
-  <div>touch1: <span id="v-touch1">-</span></div>
+  <div id="circle" style="border-radius:999px;background:black;"></div>
+
+  <script type="module">
+    import { readSerialAndUpdate } from "./js/render.js";
+
+    const circle = document.getElementById("circle");
+
+    readSerialAndUpdate((sensors) => {
+      const sliderdata = sensors.slider1.value;
+      // mit Fallback sonst erster Wert undefined:
+      // const sliderdata = sensors.slider1?.value ?? 0;
+      const size = `${sliderdata * 100}px`
+      circle.style.width = size;
+      circle.style.height = size;
+    }, { immediate: true });
+  </script>
+
 </body>
 </html>

@@ -1,8 +1,6 @@
 import { resolveIlabPortForConnect } from "../shared/core.js";
 import { SerialJsonClient } from "../shared/serial.js";
-import { bindSensorRender } from "./render.js";
-
-const SENSOR_IDS = ["button1", "slider1", "distance1", "joystick1", "touch1"];
+const sensors = (window.sensors = window.sensors || {});
 
 function init() {
   const app = document.getElementById("app") || document.body;
@@ -101,10 +99,6 @@ function init() {
     status: document.getElementById("status"),
   };
 
-  const state = {
-    sensorData: {},
-  };
-
   const serialClient = new SerialJsonClient({
     serialApi: navigator.serial,
     onJson: handleJsonObject,
@@ -118,17 +112,6 @@ function init() {
       setStatus("USB device disconnected.", true);
     },
   });
-
-  bindSensorRender({
-    ids: SENSOR_IDS,
-    getValue,
-    eventTarget: window,
-  });
-
-  function getValue(sensorName, fallback = undefined) {
-    const value = state.sensorData?.[sensorName]?.value;
-    return value === undefined ? fallback : value;
-  }
 
   function setStatus(message, isError = false) {
     els.status.textContent = message || "";
@@ -152,9 +135,24 @@ function init() {
 
   function handleJsonObject(obj) {
     if (obj?.data && typeof obj.data === "object") {
-      state.sensorData = obj.data;
+      updateSensors(obj.data);
+      logSensorValues(obj.data);
+      window.dispatchEvent(new CustomEvent("sensors-updated", { detail: { sensors, frame: obj } }));
       window.dispatchEvent(new CustomEvent("sensor-frame", { detail: obj }));
     }
+  }
+
+  function updateSensors(next) {
+    for (const key of Object.keys(sensors)) delete sensors[key];
+    Object.assign(sensors, next);
+  }
+
+  function logSensorValues(snapshot) {
+    const values = {};
+    for (const [key, sensor] of Object.entries(snapshot || {})) {
+      values[key] = sensor?.value;
+    }
+    console.log("Sensor values", values);
   }
 
   async function resolvePortForConnect() {

@@ -1,7 +1,6 @@
 import {
   PORT_ORDER,
   PORT_TYPE_OPTIONS_WITH_NONE,
-  PRESET_FOLDER_PICKER_ID,
   allowedTypesForPort,
   coercePresetObject,
   resolveIlabPortForConnect,
@@ -30,7 +29,6 @@ function init() {
 
   const groups = { A: els.groupA, B: els.groupB, C: els.groupC, D: els.groupD };
 
-  let presetDirHandle = null;
   let presetItems = [];
   const ackTracker = new AckTracker("No admin response from ESP (timeout)");
   const serialClient = new SerialJsonClient({
@@ -81,15 +79,6 @@ function init() {
     els.presetStatus.classList.toggle("status-error", !!isError);
   }
 
-  async function ensurePresetDirPermission(mode = "read") {
-    if (!presetDirHandle) return false;
-    if (!presetDirHandle.queryPermission || !presetDirHandle.requestPermission) return true;
-    let state = await presetDirHandle.queryPermission({ mode });
-    if (state === "granted") return true;
-    state = await presetDirHandle.requestPermission({ mode });
-    return state === "granted";
-  }
-
   async function sendPayload(payload) {
     const json = await serialClient.sendJson(payload);
     logLine(`>> ${json}`);
@@ -129,49 +118,20 @@ function init() {
   async function refreshPresetItems(preferredSelection = "") {
     const current = preferredSelection || els.presetSelect?.value || "";
     const byName = new Map();
-    let hasRefreshError = false;
 
     const relativeItems = await loadRelativeDirectoryPresets();
     for (const item of relativeItems) byName.set(item.name.toLowerCase(), item);
 
-    if (presetDirHandle) {
-      const hasPermission = await ensurePresetDirPermission("read");
-      if (!hasPermission) {
-        hasRefreshError = true;
-        setPresetStatus("Folder permission denied. Use Save Current to reselect folder.", true);
-      } else {
-        const dirItems = [];
-        for await (const [name, handle] of presetDirHandle.entries()) {
-          if (handle.kind !== "file") continue;
-          if (!name.toLowerCase().endsWith(".json")) continue;
-          if (name.toLowerCase() === "presets.json") continue;
-          dirItems.push({ id: `dir:${name}`, label: `${name} (folder)`, source: "dir", name });
-        }
-        dirItems.sort((a, b) => a.name.localeCompare(b.name));
-        for (const item of dirItems) byName.set(item.name.toLowerCase(), item);
-      }
-    }
-
     const items = Array.from(byName.values()).sort((a, b) => a.name.localeCompare(b.name));
     presetItems = items;
     rebuildPresetSelect(current);
-    if (!hasRefreshError) setPresetStatus("");
+    setPresetStatus("");
   }
 
   async function readPresetObject(item) {
     if (!item) return {};
     if (item.source === "relative") {
       return loadRelativePresetObject(RELATIVE_PRESET_DIR_URL, item.name);
-    }
-    if (item.source === "dir" && presetDirHandle) {
-      const hasPermission = await ensurePresetDirPermission("read");
-      if (!hasPermission) throw new Error("Folder permission denied");
-      const fileHandle = await presetDirHandle.getFileHandle(item.name);
-      const file = await fileHandle.getFile();
-      const text = await file.text();
-      const parsed = JSON.parse(text);
-      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return {};
-      return parsed;
     }
     return {};
   }
@@ -202,36 +162,28 @@ function init() {
   }
 
   async function saveCurrentPreset() {
-    if (!presetDirHandle) await choosePresetFolder();
-    if (!presetDirHandle) return;
-    const hasWritePermission = await ensurePresetDirPermission("readwrite");
-    if (!hasWritePermission) {
-      setPresetStatus("Folder write permission denied.", true);
-      return;
-    }
-
     const rawName = (els.presetNameInput?.value || "").trim();
     const autoName = `preset-${new Date().toISOString().replace(/[:.]/g, "-")}.json`;
 
     const baseName = rawName || autoName;
     const fileName = baseName.toLowerCase().endsWith(".json") ? baseName : `${baseName}.json`;
     const payload = editor.buildPayload();
-    const fileHandle = await presetDirHandle.getFileHandle(fileName, { create: true });
-    const writable = await fileHandle.createWritable();
-    await writable.write(JSON.stringify(payload, null, 2) + "\n");
-    await writable.close();
-    await refreshPresetItems(`dir:${fileName}`);
-    if (els.presetNameInput && !rawName) els.presetNameInput.value = fileName;
-    setPresetStatus("");
-  }
+    const jsonText = JSON.stringify(payload, null, 2) + "\n";
 
-  async function choosePresetFolder() {
-    if (!("showDirectoryPicker" in window)) {
-      setPresetStatus("Directory picker not supported in this browser.", true);
-      return;
-    }
-    presetDirHandle = await window.showDirectoryPicker({ mode: "readwrite", id: PRESET_FOLDER_PICKER_ID });
-    await refreshPresetItems();
+    const blob = new Blob([jsonText], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = fileName;
+    anchor.style.display = "none";
+    document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+
+    await refreshPresetItems(fileName);
+    if (els.presetNameInput && !rawName) els.presetNameInput.value = fileName;
+    setPresetStatus(`Downloaded "${fileName}"`);
   }
 
   function handleJsonObject(obj) {

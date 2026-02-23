@@ -1,22 +1,26 @@
-function fmt(v) {
-  if (v === undefined) return "-";
-  if (v !== null && typeof v === "object") return JSON.stringify(v);
-  return String(v);
+function getSensors() {
+  return window.sensors || {};
 }
 
-function renderValues(ids, getValue) {
-  for (const id of ids) {
-    const el = document.getElementById(`v-${id}`);
-    if (!el) continue;
-    el.textContent = fmt(getValue(id, "-"));
+function readSerialAndUpdate(callback, { eventTarget = window, immediate = false } = {}) {
+  if (typeof callback !== "function") {
+    throw new Error("readSerialAndUpdate requires a callback function.");
   }
+
+  const handler = (event) => {
+    callback(getSensors(), event?.detail?.frame || null, event);
+  };
+
+  eventTarget.addEventListener("sensors-updated", handler);
+
+  if (immediate) {
+    callback(getSensors(), null, null);
+  }
+
+  return () => eventTarget.removeEventListener("sensors-updated", handler);
 }
 
-function bindSensorRender({ ids, getValue, eventTarget = window }) {
-  const handle = () => renderValues(ids, getValue);
-  eventTarget.addEventListener("sensor-frame", handle);
-  handle();
-  return () => eventTarget.removeEventListener("sensor-frame", handle);
-}
+// Backward-compatible alias
+const onSensorsUpdated = readSerialAndUpdate;
 
-export { bindSensorRender };
+export { getSensors, readSerialAndUpdate, onSensorsUpdated };
