@@ -6,6 +6,7 @@ function createEditor({
   coercePresetObject,
   isConnected,
   sendPayload,
+  waitForConfigAck,
   logLine,
 }) {
   let editingPort = null;
@@ -169,7 +170,12 @@ function createEditor({
     if (!editDraft.type) editDraft.type = "none";
 
     configByPort.set(editingPort, { ...editDraft });
+    const shouldAwaitAck =
+      !!pendingEditSync &&
+      typeof waitForConfigAck === "function";
+    const ackPromise = shouldAwaitAck ? waitForConfigAck(3500) : null;
     await sendPayload(buildPayload());
+    if (ackPromise) await ackPromise;
     if (!stayEditing) exitEdit(true);
   }
 
@@ -243,6 +249,7 @@ function createEditor({
         renderEdit(ref);
         sendConfig(true).catch((err) => {
           pendingEditSync = null;
+          renderEdit(ref);
           logLine(`Config error: ${err.message}`);
         });
       });

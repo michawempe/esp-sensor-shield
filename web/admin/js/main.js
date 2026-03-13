@@ -60,6 +60,7 @@ function init() {
       }),
     isConnected: () => serialClient.isConnected(),
     sendPayload,
+    waitForConfigAck,
     logLine,
   });
 

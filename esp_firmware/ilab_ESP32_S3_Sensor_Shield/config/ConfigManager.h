@@ -12,11 +12,11 @@
 #include "../sensors/SoundSensor.h"
 #include "../sensors/JoystickSensor.h"
 #include "../sensors/TouchSensor.h"
-#include "../sensors/SharpSensor.h"
 #include "../sensors/SliderSensor.h"
 #include "../sensors/DigitalInPullup.h"
 #include "../sensors/EncoderSensor.h"
 #include "../sensors/LightSensor.h"
+#include "../sensors/VL53L0XSensor.h"
 
 class ConfigManager {
 public:
@@ -338,18 +338,6 @@ private:
       return new SoundSensor(portId, name.c_str(), p.pins[0], inMin, inMax, outMin, outMax);
     }
 
-    if (type == "distance") {
-      if (p.type != PORT_3P) {
-        errorMessage = "distance_requires_3p_port";
-        return nullptr;
-      }
-      const float inMin = getFloatOr(entry, "inMin", SensorDefaults::DISTANCE_IN_MIN);
-      const float inMax = getFloatOr(entry, "inMax", SensorDefaults::DISTANCE_IN_MAX);
-      const float outMin = getFloatOr(entry, "outMin", SensorDefaults::DISTANCE_OUT_MIN);
-      const float outMax = getFloatOr(entry, "outMax", SensorDefaults::DISTANCE_OUT_MAX);
-      return new SharpSensor(portId, name.c_str(), p.pins[0], inMin, inMax, outMin, outMax);
-    }
-
     if (type == "magnet") {
       if (p.type != PORT_3P) {
         errorMessage = "magnet_requires_3p_port";
@@ -382,6 +370,23 @@ private:
       const float outMin = getFloatOr(entry, "outMin", SensorDefaults::JOYSTICK_OUT_MIN);
       const float outMax = getFloatOr(entry, "outMax", SensorDefaults::JOYSTICK_OUT_MAX);
       return new JoystickSensor(portId, name.c_str(), p.pins[0], p.pins[1], midCutoff, edgeCutoff, outMin, outMax);
+    }
+
+    if (type == "distance") {
+      if (p.type != PORT_4P || p.pinCount != 2) {
+        errorMessage = "distance_requires_4p_port";
+        return nullptr;
+      }
+      const float inMin = getFloatOr(entry, "inMin", SensorDefaults::DISTANCE_IN_MIN);
+      const float inMax = getFloatOr(entry, "inMax", SensorDefaults::DISTANCE_IN_MAX);
+      const float outMin = getFloatOr(entry, "outMin", SensorDefaults::DISTANCE_OUT_MIN);
+      const float outMax = getFloatOr(entry, "outMax", SensorDefaults::DISTANCE_OUT_MAX);
+      // PortMap stores 4P pins as {SCL, SDA}. Wire.begin expects (SDA, SCL).
+      return new VL53L0XSensor(
+        portId, name.c_str(),
+        p.pins[0], p.pins[1],
+        inMin, inMax, outMin, outMax
+      );
     }
 
     errorMessage = String("unknown_sensor_type: ") + type;

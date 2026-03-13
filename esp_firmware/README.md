@@ -14,10 +14,15 @@ Standard format per port:
 
 ```json
 {
-  "B1": { "type": "distance", "name": "distance1", "inMin": 5, "inMax": 30, "outMin": 1, "outMax": 100 },
-  "C2": { "type": "joystick", "name": "joystick1", "midCutoff": 100, "edgeCutoff": 100, "outMin": -1, "outMax": 1 }
+  "C1": { "type": "distance", "name": "distance1", "inMin": 30, "inMax": 1200, "outMin": 0, "outMax": 1 },
+  "C2": { "type": "joystick", "name": "joystick1", "midCutoff": 100, "edgeCutoff": 100, "outMin": -1, "outMax": 1 },
+  "B3": { "type": "slider", "name": "slider1", "inMin": 0, "inMax": 4095, "outMin": 0, "outMax": 1 }
 }
 ```
+
+Notes:
+- `distance` is the 4-pin I2C VL53L0X sensor type on C-ports.
+- Required library for `distance`: `VL53L0X` (Pololu).
 
 If `name` is missing, firmware auto-generates deterministic names (`type + index`) in port order `A1..D4`.
 

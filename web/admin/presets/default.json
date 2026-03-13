@@ -15,14 +15,6 @@
     "type": "switch",
     "name": "switch2"
   },
-  "B1": {
-    "type": "distance",
-    "name": "distance1",
-    "inMin": 15,
-    "inMax": 150,
-    "outMin": 0,
-    "outMax": 1
-  },
   "B2": {
     "type": "magnet",
     "name": "magnet1",
@@ -67,6 +59,14 @@
     "midCutoff": 100,
     "edgeCutoff": 0,
     "outMin": -1,
+    "outMax": 1
+  },
+  "C3": {
+    "type": "distance",
+    "name": "distance1",
+    "inMin": 30,
+    "inMax": 600,
+    "outMin": 0,
     "outMax": 1
   },
   "D1": {

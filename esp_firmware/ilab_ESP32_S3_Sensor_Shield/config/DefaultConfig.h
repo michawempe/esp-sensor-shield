@@ -8,9 +8,9 @@ namespace SensorDefaults {
   static constexpr float ANALOG_OUT_MIN = 0.0f;
   static constexpr float ANALOG_OUT_MAX = 1.0f;
 
-  // Distance
-  static constexpr float DISTANCE_IN_MIN = 15.0f;
-  static constexpr float DISTANCE_IN_MAX = 150.0f;
+  // Distance (VL53L0X, mm-based raw value)
+  static constexpr float DISTANCE_IN_MIN = 30.0f;
+  static constexpr float DISTANCE_IN_MAX = 600.0f;
   static constexpr float DISTANCE_OUT_MIN = 0.0f;
   static constexpr float DISTANCE_OUT_MAX = 1.0f;
 
