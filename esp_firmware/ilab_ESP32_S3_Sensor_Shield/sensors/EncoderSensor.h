@@ -59,13 +59,13 @@ class EncoderSensor : public SensorBase {
   int  lastCount        = 0;
   long accumulatedCount = 0;
   long rawCount         = 0;
-  long value            = 0;
-  int  fullRotation;
-  bool modulo;
+  float value           = 0.0f;
+  float fullRotation;
+  bool  modulo;
 
 public:
   EncoderSensor(const char* pid, const char* sensorName, uint8_t a, uint8_t b,
-                int cfgFullRotation, bool cfgModulo)
+                float cfgFullRotation, bool cfgModulo)
     : pinA(a), pinB(b), fullRotation(cfgFullRotation), modulo(cfgModulo) {
     setPortId(pid);
     setName(sensorName);
@@ -186,17 +186,16 @@ public:
     rawCount  = accumulatedCount;
 
     // Scale raw ticks to the configured fullRotation.
-    // Example: 40 ticks per physical turn, fullRotation=360 => factor 9.
-    if (fullRotation > 0) {
-      const float scaled = ((float)rawCount * (float)fullRotation) / TICKS_PER_ROTATION;
-      value = lroundf(scaled);
+    // Example: 40 ticks per physical turn, fullRotation=1 => 0.5 at 180°.
+    if (fullRotation > 0.0f) {
+      value = ((float)rawCount * fullRotation) / TICKS_PER_ROTATION;
     } else {
-      value = rawCount;
+      value = (float)rawCount;
     }
 
-    if (modulo && fullRotation > 0) {
-      long wrapped = value % fullRotation;
-      if (wrapped < 0) wrapped += fullRotation;
+    if (modulo && fullRotation > 0.0f) {
+      float wrapped = fmodf(value, fullRotation);
+      if (wrapped < 0.0f) wrapped += fullRotation;
       value = wrapped;
     }
   }
@@ -209,9 +208,9 @@ public:
     json += ",\"raw\":";
     json += rawCount;
     json += ",\"value\":";
-    json += value;
+    appendFloat(json, value, 2);
     json += ",\"fullRotation\":";
-    json += fullRotation;
+    appendFloat(json, fullRotation, 2);
     json += ",\"modulo\":";
     json += (modulo ? "true" : "false");
     json += "}";

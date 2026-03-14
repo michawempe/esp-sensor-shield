@@ -24,7 +24,7 @@ namespace SensorDefaults {
   static constexpr uint32_t TOUCH_THRESHOLD = 50000u;
 
   // Encoder
-  static constexpr int ENCODER_FULL_ROTATION = 360;
+  static constexpr float ENCODER_FULL_ROTATION = 360.0f;
   static constexpr bool ENCODER_MODULO = false;
 
   // Joystick

@@ -60,7 +60,7 @@ To erase the stored config, send: `{}`
 | `joystick` | `midCutoff`, `edgeCutoff`, `outMin`, `outMax` | 100 / 100 / -1 / 1 |
 | `distance` | `inMin`, `inMax`, `outMin`, `outMax` | 30 / 1200 / 0 / 1 |
 
-- `encoder`: `fullRotation` = value when rotated 360°. `modulo: true` wraps value at `fullRotation`.
+- `encoder`: `fullRotation` = output value after one full turn (supports float: `1` → 180° gives `0.50`). `modulo: true` wraps value at `fullRotation`.
 - `joystick`: `midCutoff` = deadzone around center (ADC 2048). `value` is `{"x":..., "y":...}`.
 - `distance`: `inMin`/`inMax` in mm. Max 2 distance sensors simultaneously.
 

@@ -355,7 +355,7 @@ private:
         errorMessage = "encoder_requires_4p_port";
         return nullptr;
       }
-      const int fullRotation = getIntOr(entry, "fullRotation", SensorDefaults::ENCODER_FULL_ROTATION);
+      const float fullRotation = getFloatOr(entry, "fullRotation", SensorDefaults::ENCODER_FULL_ROTATION);
       const bool modulo = getBoolOr(entry, "modulo", SensorDefaults::ENCODER_MODULO);
       return new EncoderSensor(portId, name.c_str(), p.pins[0], p.pins[1], fullRotation, modulo);
     }
