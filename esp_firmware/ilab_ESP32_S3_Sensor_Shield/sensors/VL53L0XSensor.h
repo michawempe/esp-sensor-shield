@@ -9,6 +9,30 @@
 class VL53L0XSensor : public SensorBase {
   static constexpr int MEDIAN_SIZE = 5;
 
+  // ESP32-S3 has two hardware I2C controllers (bus 0 and 1).
+  // Each VL53L0X sensor claims one exclusively so multiple sensors on
+  // different C-ports (different SDA/SCL pins) don't overwrite each other.
+  // Maximum 2 distance sensors can be active simultaneously.
+  inline static uint8_t s_busUsed = 0; // bitmask: bit0=bus0, bit1=bus1
+
+  static int claimBus() {
+    for (int i = 0; i < 2; i++) {
+      if (!(s_busUsed & (1 << i))) {
+        s_busUsed |= (1 << i);
+        return i;
+      }
+    }
+    return -1; // no hardware I2C bus available
+  }
+
+  static void releaseBus(int i) {
+    if (i >= 0 && i < 2) s_busUsed &= ~(1 << i);
+  }
+
+  // busIndex MUST be declared before wire: member init order follows declaration order.
+  int busIndex;
+  TwoWire wire;
+
   uint8_t pinScl;
   uint8_t pinSda;
 
@@ -46,15 +70,35 @@ public:
   VL53L0XSensor(const char* pid, const char* sensorName,
                 uint8_t cfgPinScl, uint8_t cfgPinSda,
                 float cfgInMin, float cfgInMax, float cfgOutMin, float cfgOutMax)
-    : pinScl(cfgPinScl), pinSda(cfgPinSda),
-      inMin(cfgInMin), inMax(cfgInMax), outMin(cfgOutMin), outMax(cfgOutMax) {
+    : busIndex(claimBus()),
+      wire(busIndex >= 0 ? (uint8_t)busIndex : 0),
+      pinScl(cfgPinScl), pinSda(cfgPinSda),
+      inMin(cfgInMin), inMax(cfgInMax), outMin(cfgOutMin), outMax(cfgOutMax)
+  {
     setPortId(pid);
     setName(sensorName);
   }
 
+  ~VL53L0XSensor() {
+    if (busIndex >= 0) {
+      if (initialized) lox.stopContinuous();
+      wire.end();
+      releaseBus(busIndex);
+    }
+  }
+
   void begin() override {
-    Wire.begin(pinSda, pinScl);
-    Wire.setClock(400000);
+    hasReading = false;
+    rawMm = 0;
+    value = NAN;
+    initialized = false;
+    if (busIndex < 0) {
+      Serial.println("{\"error\":\"no_i2c_bus\",\"msg\":\"max 2 distance sensors supported\"}");
+      return;
+    }
+    wire.begin(pinSda, pinScl);
+    wire.setClock(400000);
+    lox.setBus(&wire);
     lox.setTimeout(500);
     initialized = lox.init();
     if (initialized) {

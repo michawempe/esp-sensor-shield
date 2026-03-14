@@ -8,7 +8,6 @@ const PORT_TYPE_OPTIONS_BASE = {
 const PORT_TYPE_OPTIONS_WITH_NONE = Object.fromEntries(
   Object.entries(PORT_TYPE_OPTIONS_BASE).map(([group, list]) => [group, ["none", ...list]]),
 );
-const PRESET_FOLDER_PICKER_ID = "esp32s3-presets";
 
 const ILAB_ALLOWED_USB_FILTERS = [
   // ESP32-S3 USB JTAG/Serial interface
@@ -179,7 +178,6 @@ export {
   PORT_ORDER,
   PORT_TYPE_OPTIONS_BASE,
   PORT_TYPE_OPTIONS_WITH_NONE,
-  PRESET_FOLDER_PICKER_ID,
   ILAB_ALLOWED_USB_FILTERS,
   ILAB_BLOCKED_USB_FILTERS,
   allowedTypesForPort,

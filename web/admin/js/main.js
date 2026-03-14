@@ -45,6 +45,15 @@ function init() {
       logLine("disconnected");
       setPresetStatus("USB device disconnected.", true);
     },
+    onConnectedStateChange: (on) => {
+      // Called by auto-reconnect to restore UI without a full connect() cycle.
+      if (on) {
+        setConnected(true);
+        setPresetStatus("");
+        logLine("reconnected");
+      }
+    },
+    autoReconnect: true,
   });
 
   const editor = createEditor({
@@ -153,13 +162,20 @@ function init() {
     const count = Object.keys(payload).length;
     const isExplicitEmptyPreset = item.name.toLowerCase() === "empty.json";
     if (count === 0 && !isExplicitEmptyPreset) {
-      setPresetStatus(`Preset "${item.label}" ergibt leere Config ({}). Nicht gesendet.`, true);
+      editor.confirmConfigApplied();
+      setPresetStatus(`Preset "${item.label}" results in empty config ({}). Not sent.`, true);
       return;
     }
     const ackPromise = waitForConfigAck(3500);
-    await sendPayload(payload);
-    await ackPromise;
-    setPresetStatus("");
+    try {
+      await sendPayload(payload);
+      await ackPromise;
+      setPresetStatus("");
+    } finally {
+      // Always unlock the editor so applyFrame resumes showing live ESP data,
+      // even if the ACK timed out or an error occurred.
+      editor.confirmConfigApplied();
+    }
   }
 
   async function saveCurrentPreset() {
@@ -182,7 +198,6 @@ function init() {
     anchor.remove();
     setTimeout(() => URL.revokeObjectURL(url), 0);
 
-    await refreshPresetItems(fileName);
     if (els.presetNameInput && !rawName) els.presetNameInput.value = fileName;
     setPresetStatus(`Downloaded "${fileName}"`);
   }
@@ -203,7 +218,7 @@ function init() {
 
   async function connect() {
     if (!("serial" in navigator)) {
-      alert("WebSerial ist hier nicht verfügbar. Bitte Chrome/Edge nutzen.");
+      alert("WebSerial is not available here. Please use Chrome or Edge.");
       return;
     }
     await serialClient.connect({

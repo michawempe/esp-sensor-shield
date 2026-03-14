@@ -111,6 +111,15 @@ function init() {
       setConnectedUi(false);
       setStatus("USB device disconnected.", true);
     },
+    onConnectedStateChange: (on) => {
+      // Called by auto-reconnect to restore UI without a full connect() cycle.
+      if (on) {
+        setConnectedUi(true);
+        setStatus("");
+        dismissPopup();
+      }
+    },
+    autoReconnect: true,
   });
 
   function setStatus(message, isError = false) {

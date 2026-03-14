@@ -47,8 +47,9 @@ static bool eraseStoredConfig() {
 }
 
 static String escapeJson(const String& in) {
+  static const char hexDigits[] = "0123456789abcdef";
   String out;
-  out.reserve(in.length() + 8);
+  out.reserve(in.length() + 16);
   for (size_t i = 0; i < in.length(); i++) {
     const char c = in[i];
     if (c == '\"' || c == '\\') {
@@ -60,6 +61,11 @@ static String escapeJson(const String& in) {
       out += "\\r";
     } else if (c == '\t') {
       out += "\\t";
+    } else if ((unsigned char)c < 0x20) {
+      // Other control characters must be escaped as \u00XX per JSON spec.
+      out += "\\u00";
+      out += hexDigits[(c >> 4) & 0x0F];
+      out += hexDigits[c & 0x0F];
     } else {
       out += c;
     }
@@ -149,7 +155,10 @@ void setup() {
       usingStored = true;
       configOk = true;
     } else {
-      eraseStoredConfig();
+      const bool erased = eraseStoredConfig();
+      if (!erased) {
+        Serial.println("{\"warning\":\"erase_failed\",\"msg\":\"invalid stored config could not be erased from NVS\"}");
+      }
       configOk = configManager.applyDefault(err);
     }
   } else {

@@ -16,6 +16,13 @@ function createEditor({
   const rowByPort = new Map();
   const sensorByPort = new Map();
   const configByPort = new Map();
+  // Ports explicitly set to "none" via applyPresetObject or a user edit.
+  // Incoming ESP frames will not overwrite these until the port is actively
+  // reconfigured, preventing stale frames from restoring cleared sensors.
+  const explicitlyClearedPorts = new Set();
+  // When a preset is loaded, block applyFrame from showing stale sensor data
+  // until the ESP confirms the new config via config_applied.
+  let awaitingConfigAck = false;
 
   function fmt(v) {
     if (v === undefined) return "-";
@@ -77,18 +84,38 @@ function createEditor({
   }
 
   function applyPresetObject(presetConfig) {
-    if (editingPort) exitEdit(false);
+    if (editingPort) exitEdit();
+
+    // Clear live sensor data immediately so rows collapse at once rather than
+    // staying open with stale values while the ESP applies the new config.
+    sensorByPort.clear();
 
     const source = coercePresetObject(presetConfig);
     for (const portId of PORT_ORDER) {
       const entry = normalizePresetEntry(portId, source[portId]);
       configByPort.set(portId, entry);
+      // Track ports intentionally cleared so stale ESP frames cannot restore them.
+      if (entry.type === "none") {
+        explicitlyClearedPorts.add(portId);
+      } else {
+        explicitlyClearedPorts.delete(portId);
+      }
     }
 
     for (const portId of PORT_ORDER) {
       const ref = rowByPort.get(portId);
       if (ref) renderNormal(ref);
     }
+
+    // Block stale ESP frames from re-opening sensor windows while the ESP
+    // applies the new config.  confirmConfigApplied() clears this flag.
+    awaitingConfigAck = true;
+  }
+
+  // Called by main.js after the config_applied ACK is received (or on error/
+  // timeout) to allow applyFrame to display live ESP data again.
+  function confirmConfigApplied() {
+    awaitingConfigAck = false;
   }
 
   function buildPayload() {
@@ -148,9 +175,12 @@ function createEditor({
 
   function renderNormal(ref) {
     const portId = ref.portId;
-    const cfg = configByPort.get(portId) || { type: "none", name: "" };
     const sensor = sensorByPort.get(portId);
-    const isUnused = (cfg.type || "none") === "none";
+    // Display is driven by what the ESP actually reports, not the local configByPort.
+    // This keeps rows collapsed until the ESP confirms the configuration.
+    const displayType = sensor?.type || "none";
+    const displayName = sensor?.__name || "";
+    const isUnused = displayType === "none";
 
     ref.row.classList.remove("editing");
     ref.row.classList.toggle("type-none", isUnused);
@@ -158,10 +188,10 @@ function createEditor({
     ref.editLive = null;
 
     ref.portChip.textContent = portId;
-    ref.typeChip.textContent = `type: ${cfg.type || "none"}`;
-    ref.nameChip.textContent = `name: ${cfg.name || "-"}`;
+    ref.typeChip.textContent = `type: ${displayType}`;
+    ref.nameChip.textContent = `name: ${displayName || "-"}`;
     ref.valueChip.textContent = `value: ${fmt(sensor?.value)}`;
-    ref.valueChip.classList.toggle("wide", (cfg.type || "") === "joystick");
+    ref.valueChip.classList.toggle("wide", displayType === "joystick");
     ref.btnEdit.textContent = isUnused ? "add" : "edit";
   }
 
@@ -170,13 +200,27 @@ function createEditor({
     if (!editDraft.type) editDraft.type = "none";
 
     configByPort.set(editingPort, { ...editDraft });
+    // Keep the guard set in sync: if the user explicitly clears a port,
+    // prevent stale frames from reactivating it until it is reconfigured.
+    if (editDraft.type === "none") {
+      explicitlyClearedPorts.add(editingPort);
+    } else {
+      explicitlyClearedPorts.delete(editingPort);
+    }
     const shouldAwaitAck =
       !!pendingEditSync &&
       typeof waitForConfigAck === "function";
     const ackPromise = shouldAwaitAck ? waitForConfigAck(3500) : null;
     await sendPayload(buildPayload());
-    if (ackPromise) await ackPromise;
-    if (!stayEditing) exitEdit(true);
+    if (ackPromise) {
+      // If another ACK wait is already in progress ("still pending"), swallow
+      // the rejection silently — the payload was sent and the first ACK will
+      // still arrive. Any other error (timeout, ESP error) is re-thrown.
+      await ackPromise.catch((err) => {
+        if (!err?.message?.includes("still pending")) throw err;
+      });
+    }
+    if (!stayEditing) exitEdit();
   }
 
   function renderEdit(ref) {
@@ -281,7 +325,7 @@ function createEditor({
     const close = document.createElement("button");
     close.className = "btn";
     close.textContent = "close";
-    close.addEventListener("click", () => exitEdit(false));
+    close.addEventListener("click", () => exitEdit());
     closeWrap.append(close);
     bar.appendChild(closeWrap);
 
@@ -362,7 +406,7 @@ function createEditor({
     const ref = rowByPort.get(portId);
     if (!ref) return;
 
-    if (editingPort && editingPort !== portId) exitEdit(false);
+    if (editingPort && editingPort !== portId) exitEdit();
 
     editingPort = portId;
     pendingEditSync = null;
@@ -396,6 +440,18 @@ function createEditor({
   function applyFrame(frame) {
     const data = frame?.data && typeof frame.data === "object" ? frame.data : {};
     sensorByPort.clear();
+
+    // While waiting for config_applied, discard stale ESP frames so sensor
+    // windows don't re-appear with old data.  confirmConfigApplied() lifts
+    // this guard once the ESP has acknowledged the new config.
+    if (awaitingConfigAck) {
+      for (const p of PORT_ORDER) {
+        const ref = rowByPort.get(p);
+        if (ref && editingPort !== p) renderNormal(ref);
+      }
+      return;
+    }
+
     let didSyncOpenEditor = false;
 
     for (const [name, sensor] of Object.entries(data)) {
@@ -415,8 +471,12 @@ function createEditor({
         pendingEditSync = null;
         didSyncOpenEditor = true;
       } else if (editingPort !== s.port) {
-        const existing = configByPort.get(s.port) || defaultEntryForType("none", "");
-        configByPort.set(s.port, { ...existing, ...copyConfigFromSensor(name, s) });
+        // Skip ports that the user explicitly cleared — a stale frame from the
+        // old configuration must not restore a port that was intentionally removed.
+        if (!explicitlyClearedPorts.has(s.port)) {
+          const existing = configByPort.get(s.port) || defaultEntryForType("none", "");
+          configByPort.set(s.port, { ...existing, ...copyConfigFromSensor(name, s) });
+        }
       }
     }
 
@@ -444,6 +504,7 @@ function createEditor({
     initRows,
     applyFrame,
     applyPresetObject,
+    confirmConfigApplied,
     buildPayload,
   };
 }

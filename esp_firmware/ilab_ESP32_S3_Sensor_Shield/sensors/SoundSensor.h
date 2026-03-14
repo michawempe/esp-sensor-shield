@@ -44,7 +44,7 @@ public:
       if (SAMPLE_DELAY_US) delayMicroseconds(SAMPLE_DELAY_US);
     }
 
-    p2p = maxV - minV;
+    p2p = (maxV >= minV) ? (maxV - minV) : 0;  // Guard: no samples taken if serial interrupted immediately.
     value = mapClamped((float)p2p, inMin, inMax, outMin, outMax);
   }
 
