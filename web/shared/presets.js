@@ -7,6 +7,28 @@ async function listRelativePresetNames(
     exclude = new Set(["presets.json"]),
   } = {},
 ) {
+  // Primary: fetch the presets.json manifest — more reliable than HTML directory parsing.
+  try {
+    const manifestRes = await fetch(`${baseUrl}presets.json`, { cache: "no-store" });
+    if (manifestRes.ok) {
+      const raw = await manifestRes.json();
+      if (Array.isArray(raw)) {
+        const names = new Set(include);
+        for (const fileName of raw) {
+          if (typeof fileName !== "string") continue;
+          const lower = fileName.toLowerCase();
+          if (!lower.endsWith(".json")) continue;
+          if (exclude.has(lower)) continue;
+          names.add(fileName);
+        }
+        return Array.from(names).sort((a, b) => a.localeCompare(b));
+      }
+    }
+  } catch {
+    // Fall through to HTML directory listing parsing.
+  }
+
+  // Fallback: parse the HTML directory listing for .json file links.
   let names = Array.from(include);
   try {
     const response = await fetch(baseUrl, { cache: "no-store" });
