@@ -10,7 +10,7 @@ SensorManager sensorManager;
 ConfigManager configManager;
 DataPublisher publisher;
 
-static const uint32_t LOOP_DELAY_MS = 200;
+static const uint32_t LOOP_DELAY_MS = 40;
 
 static const char* PREF_NS = "sensor_cfg";
 static const char* PREF_KEY_JSON = "json";

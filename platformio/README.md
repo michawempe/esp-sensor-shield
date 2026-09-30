@@ -35,7 +35,7 @@ Der Upload läuft absichtlich mit 115200 Baud direkt über den ROM-Bootloader (`
 
 ## 3. Funktion prüfen
 
-Im Monitor kommen ungefähr alle 200 ms JSON-Zeilen, bei leerer Sensorkonfiguration:
+Im Monitor kommen bei leerer Sensorkonfiguration ungefähr alle 40 ms JSON-Zeilen. Blockierende Sensorabfragen können das Intervall verlängern:
 
 ```json
 {"data":{}}

@@ -1,7 +1,7 @@
 # Firmware
 
 Arduino sketch for the ilab ESP32-S3 Sensor Shield.
-Reads sensors, streams JSON over USB Serial at ~5 Hz, persists config in NVS.
+Reads sensors, streams JSON over USB Serial at up to 25 Hz (depending on sensor read times), persists config in NVS.
 
 ## Flash
 
@@ -94,7 +94,7 @@ If omitted, names are auto-generated in port order: `slider1`, `button2`, etc.
 
 ## Serial Output Format
 
-Frames are emitted every 200 ms:
+Frames are scheduled every 40 ms; blocking sensor reads can increase the interval:
 
 ```json
 {"data":{"mySlider":{"type":"slider","port":"B1","raw":2048,"value":0.5,"inMin":0,"inMax":4095,"outMin":0,"outMax":1}}}
