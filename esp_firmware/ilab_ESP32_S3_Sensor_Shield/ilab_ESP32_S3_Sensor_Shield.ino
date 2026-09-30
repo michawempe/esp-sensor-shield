@@ -178,7 +178,7 @@ void setup() {
   } else {
     Serial.print(usingStored ? "stored" : "default");
   }
-  Serial.println("}");
+  Serial.println("\"}");
 
   lastPublishMs = millis();
 }
