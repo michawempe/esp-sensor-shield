@@ -1,0 +1,749 @@
+[
+  {
+    "phase": "after_upload",
+    "frames": 103,
+    "acks": 0,
+    "sensors": {
+      "C1": {
+        "samples": 103,
+        "nulls": 0,
+        "errors": [],
+        "raw_min": 47,
+        "raw_max": 52,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 136,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 50,
+          "readMs": 0,
+          "lastTxStatus": 0,
+          "goodReads": 314,
+          "timeouts": 0,
+          "invalidReads": 0
+        }
+      },
+      "C2": {
+        "samples": 103,
+        "nulls": 0,
+        "errors": [],
+        "raw_min": 37,
+        "raw_max": 39,
+        "last_diag": {
+          "bus": 1,
+          "initialized": true,
+          "initMs": 35,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 38,
+          "readMs": 194,
+          "lastTxStatus": 0,
+          "goodReads": 314,
+          "timeouts": 0,
+          "invalidReads": 0
+        }
+      }
+    },
+    "lifecycle": [],
+    "pass": true
+  },
+  {
+    "phase": "reapply_two",
+    "frames": 76,
+    "acks": 1,
+    "sensors": {
+      "C1": {
+        "samples": 76,
+        "nulls": 76,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": null,
+        "raw_max": null,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 50,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8190,
+          "readMs": 0,
+          "lastTxStatus": 0,
+          "goodReads": 0,
+          "timeouts": 0,
+          "invalidReads": 76
+        }
+      },
+      "C2": {
+        "samples": 76,
+        "nulls": 76,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": null,
+        "raw_max": null,
+        "last_diag": {
+          "bus": 1,
+          "initialized": true,
+          "initMs": 137,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 194,
+          "lastTxStatus": 0,
+          "goodReads": 0,
+          "timeouts": 0,
+          "invalidReads": 76
+        }
+      }
+    },
+    "lifecycle": [
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C1",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca56e4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C2",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca5790",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C1",
+        "bus": 0,
+        "mask": 3,
+        "object": "0x3fce9ae0",
+        "wire": "0x3fceff3c",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C1",
+        "bus": -1,
+        "mask": 2,
+        "object": "0x3fce9ae0",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C2",
+        "bus": 1,
+        "mask": 2,
+        "object": "0x3fce9b8c",
+        "wire": "0x3fcee3a4",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C2",
+        "bus": -1,
+        "mask": 0,
+        "object": "0x3fce9b8c",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca56e4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca56e4",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5790",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5790",
+        "wire": "0x3fcedbc4",
+        "core": 1
+      }
+    ],
+    "pass": false
+  },
+  {
+    "phase": "one_sensor",
+    "frames": 45,
+    "acks": 1,
+    "sensors": {
+      "C1": {
+        "samples": 45,
+        "nulls": 45,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": null,
+        "raw_max": null,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 150,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 229,
+          "lastTxStatus": 0,
+          "goodReads": 0,
+          "timeouts": 0,
+          "invalidReads": 45
+        }
+      }
+    },
+    "lifecycle": [
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C1",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fceea48",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C1",
+        "bus": 0,
+        "mask": 3,
+        "object": "0x3fca56e4",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C1",
+        "bus": -1,
+        "mask": 2,
+        "object": "0x3fca56e4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C2",
+        "bus": 1,
+        "mask": 2,
+        "object": "0x3fca5790",
+        "wire": "0x3fcedbc4",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C2",
+        "bus": -1,
+        "mask": 0,
+        "object": "0x3fca5790",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fceea48",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fceea48",
+        "wire": "0x3fceff28",
+        "core": 1
+      }
+    ],
+    "pass": false
+  },
+  {
+    "phase": "one_to_two",
+    "frames": 124,
+    "acks": 1,
+    "sensors": {
+      "C1": {
+        "samples": 124,
+        "nulls": 124,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": null,
+        "raw_max": null,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 51,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8190,
+          "readMs": 0,
+          "lastTxStatus": 0,
+          "goodReads": 0,
+          "timeouts": 0,
+          "invalidReads": 124
+        }
+      },
+      "C2": {
+        "samples": 124,
+        "nulls": 123,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": 0,
+        "raw_max": 0,
+        "last_diag": {
+          "bus": 1,
+          "initialized": true,
+          "initMs": 50,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 193,
+          "lastTxStatus": 0,
+          "goodReads": 1,
+          "timeouts": 0,
+          "invalidReads": 123
+        }
+      }
+    },
+    "lifecycle": [
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C1",
+        "bus": -1,
+        "mask": 1,
+        "object": "0x3fcedc2c",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C2",
+        "bus": -1,
+        "mask": 1,
+        "object": "0x3fceeaf4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fceea48",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C1",
+        "bus": -1,
+        "mask": 0,
+        "object": "0x3fceea48",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fcedc2c",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fcedc2c",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fceeaf4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fceeaf4",
+        "wire": "0x3fcee22c",
+        "core": 1
+      }
+    ],
+    "pass": false
+  },
+  {
+    "phase": "repeat_two",
+    "frames": 89,
+    "acks": 1,
+    "sensors": {
+      "C1": {
+        "samples": 89,
+        "nulls": 88,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": 0,
+        "raw_max": 0,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 168,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 100,
+          "lastTxStatus": 0,
+          "goodReads": 1,
+          "timeouts": 0,
+          "invalidReads": 88
+        }
+      },
+      "C2": {
+        "samples": 89,
+        "nulls": 89,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": null,
+        "raw_max": null,
+        "last_diag": {
+          "bus": 1,
+          "initialized": true,
+          "initMs": 50,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 93,
+          "lastTxStatus": 0,
+          "goodReads": 0,
+          "timeouts": 0,
+          "invalidReads": 89
+        }
+      }
+    },
+    "lifecycle": [
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C1",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca57b8",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C2",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca5864",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C1",
+        "bus": 0,
+        "mask": 3,
+        "object": "0x3fcedc2c",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C1",
+        "bus": -1,
+        "mask": 2,
+        "object": "0x3fcedc2c",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C2",
+        "bus": 1,
+        "mask": 2,
+        "object": "0x3fceeaf4",
+        "wire": "0x3fcee22c",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C2",
+        "bus": -1,
+        "mask": 0,
+        "object": "0x3fceeaf4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca57b8",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca57b8",
+        "wire": "0x3fcefe04",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5864",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5864",
+        "wire": "0x3fcee154",
+        "core": 1
+      }
+    ],
+    "pass": false
+  },
+  {
+    "phase": "restored",
+    "frames": 68,
+    "acks": 1,
+    "sensors": {
+      "C1": {
+        "samples": 68,
+        "nulls": 67,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": 0,
+        "raw_max": 0,
+        "last_diag": {
+          "bus": 0,
+          "initialized": true,
+          "initMs": 196,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 193,
+          "lastTxStatus": 0,
+          "goodReads": 1,
+          "timeouts": 0,
+          "invalidReads": 67
+        }
+      },
+      "C2": {
+        "samples": 68,
+        "nulls": 66,
+        "errors": [
+          "out_of_range"
+        ],
+        "raw_min": 0,
+        "raw_max": 0,
+        "last_diag": {
+          "bus": 1,
+          "initialized": true,
+          "initMs": 50,
+          "initStatus": 0,
+          "budgetOk": true,
+          "returnedMm": 8191,
+          "readMs": 1,
+          "lastTxStatus": 0,
+          "goodReads": 2,
+          "timeouts": 0,
+          "invalidReads": 66
+        }
+      }
+    },
+    "lifecycle": [
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C1",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca56e4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "constructed",
+        "port": "C2",
+        "bus": -1,
+        "mask": 3,
+        "object": "0x3fca5910",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C1",
+        "bus": 0,
+        "mask": 3,
+        "object": "0x3fca57b8",
+        "wire": "0x3fcefe04",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C1",
+        "bus": -1,
+        "mask": 2,
+        "object": "0x3fca57b8",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "destroying",
+        "port": "C2",
+        "bus": 1,
+        "mask": 2,
+        "object": "0x3fca5864",
+        "wire": "0x3fcee154",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "released",
+        "port": "C2",
+        "bus": -1,
+        "mask": 0,
+        "object": "0x3fca5864",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca56e4",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C1",
+        "bus": 0,
+        "mask": 1,
+        "object": "0x3fca56e4",
+        "wire": "0x3fceff28",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "claimed",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5910",
+        "wire": "0x0",
+        "core": 1
+      },
+      {
+        "diag": "vl53_lifecycle",
+        "event": "started",
+        "port": "C2",
+        "bus": 1,
+        "mask": 3,
+        "object": "0x3fca5910",
+        "wire": "0x3fcedbe4",
+        "core": 1
+      }
+    ],
+    "pass": false
+  }
+]
