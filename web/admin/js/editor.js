@@ -49,14 +49,17 @@ function createEditor({
     return d;
   }
 
+  const smoothingTypes = new Set(["slider", "light", "sound", "magnet", "joystick", "distance"]);
+
   function defaultEntryForType(type, name = "") {
     const out = { type };
+    if (smoothingTypes.has(type)) out.smoothingMs = 0;
     if (name) out.name = name;
     return out;
   }
 
   function copyConfigFromSensor(sensorName, sensor) {
-    const out = { type: sensor?.type || "none", name: sensorName };
+    const out = defaultEntryForType(sensor?.type || "none", sensorName);
     for (const [k, v] of Object.entries(sensor || {})) {
       if (["type", "port", "value", "raw"].includes(k)) continue;
       if (["string", "number", "boolean"].includes(typeof v)) out[k] = v;
@@ -131,6 +134,13 @@ function createEditor({
       for (const [k, v] of Object.entries(cfg)) {
         if (["type", "name"].includes(k)) continue;
         if (["string", "number", "boolean"].includes(typeof v)) entry[k] = v;
+      }
+      if (smoothingTypes.has(entry.type)) {
+        const ms = entry.smoothingMs ?? 0;
+        if (!Number.isInteger(ms) || ms < 0 || ms > 10000) {
+          throw new Error(`${p}: Glättung muss eine ganze Zahl von 0 bis 10000 ms sein.`);
+        }
+        entry.smoothingMs = ms;
       }
       out[p] = entry;
     }
@@ -250,6 +260,7 @@ function createEditor({
 
     const commitOnBlurOrEnter = (inputEl) => {
       inputEl.addEventListener("blur", () => {
+        if (!inputEl.reportValidity()) return;
         sendConfig(true).catch((err) => {
           logLine(`Config error: ${err.message}`);
         });
@@ -347,7 +358,7 @@ function createEditor({
       const wrap = document.createElement("div");
       wrap.className = "eField";
       const lab = document.createElement("label");
-      lab.textContent = `${modelKey}:`;
+      lab.textContent = modelKey === "smoothingMs" ? "Glättung (ms):" : `${modelKey}:`;
       const val = editDraft[modelKey];
 
       if (typeof val === "boolean") {
@@ -370,12 +381,18 @@ function createEditor({
       inp.className = "eCtrl";
       if (typeof val === "number") {
         inp.type = "number";
-        inp.step = "any";
+        inp.step = modelKey === "smoothingMs" ? "1" : "any";
+        if (modelKey === "smoothingMs") {
+          inp.min = "0";
+          inp.max = "10000";
+          inp.setAttribute("aria-label", "Glättung in Millisekunden");
+        }
         inp.value = Number.isFinite(val) ? String(val) : "";
         inp.addEventListener("input", () => {
           const raw = inp.value.trim();
           if (!raw.length) {
-            delete editDraft[modelKey];
+            if (modelKey === "smoothingMs") editDraft[modelKey] = 0;
+            else delete editDraft[modelKey];
             return;
           }
           const n = Number(raw);

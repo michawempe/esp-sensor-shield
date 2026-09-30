@@ -1,9 +1,11 @@
 #pragma once
 #include "SensorBase.h"
 #include "MappingUtils.h"
+#include "SmoothingFilter.h"
 #include <Arduino.h>
 
 class SoundSensor : public SensorBase {
+  SmoothingFilter smoothing;
   uint8_t pin;
 
   int p2p = 0;
@@ -25,6 +27,7 @@ public:
   }
 
   void begin() override {
+    smoothing.reset();
     analogReadResolution(12);
     analogSetPinAttenuation(pin, ADC_11db);
     pinMode(pin, INPUT);
@@ -45,7 +48,7 @@ public:
     }
 
     p2p = (maxV >= minV) ? (maxV - minV) : 0;  // Guard: no samples taken if serial interrupted immediately.
-    value = mapClamped((float)p2p, inMin, inMax, outMin, outMax);
+    value = smoothing.update(mapClamped((float)p2p, inMin, inMax, outMin, outMax), millis(), smoothingMs);
   }
 
   void appendJson(String& json) override {
@@ -65,6 +68,7 @@ public:
     appendFloat(json, outMin);
     json += ",\"outMax\":";
     appendFloat(json, outMax);
+    appendSmoothingJson(json);
     json += "}";
   }
 };

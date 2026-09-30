@@ -1,8 +1,10 @@
 #pragma once
 #include "SensorBase.h"
 #include "MappingUtils.h"
+#include "SmoothingFilter.h"
 
 class HallSensor : public SensorBase {
+  SmoothingFilter smoothing;
   uint8_t pin;
   int rawAdc = 0;
   float value = 0.0f;
@@ -20,12 +22,13 @@ public:
   }
 
   void begin() override {
+    smoothing.reset();
     analogSetPinAttenuation(pin, ADC_11db);
   }
 
   void read() override {
     rawAdc = analogRead(pin);
-    value = mapClamped((float)rawAdc, inMin, inMax, outMin, outMax);
+    value = smoothing.update(mapClamped((float)rawAdc, inMin, inMax, outMin, outMax), millis(), smoothingMs);
   }
 
   void appendJson(String& json) override {
@@ -45,6 +48,7 @@ public:
     appendFloat(json, outMin);
     json += ",\"outMax\":";
     appendFloat(json, outMax);
+    appendSmoothingJson(json);
     json += "}";
   }
 };

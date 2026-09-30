@@ -101,6 +101,7 @@ public:
         return false;
       }
 
+      sensor->setSmoothingMs(getUIntOr(parsed.entry, "smoothingMs", 0));
       staged.push_back(sensor);
     }
 
@@ -170,6 +171,18 @@ private:
     }
 
     typeOut = normalizedType(type);
+
+    if (obj.containsKey("smoothingMs")) {
+      const bool supported = typeOut == "slider" || typeOut == "light" ||
+        typeOut == "sound" || typeOut == "magnet" || typeOut == "joystick" ||
+        typeOut == "distance";
+      if (!supported || !obj["smoothingMs"].is<uint32_t>() ||
+          obj["smoothingMs"].as<uint32_t>() > 10000) {
+        errorMessage = String("port ") + portId +
+          ": smoothingMs_requires_integer_0_to_10000_and_continuous_sensor";
+        return false;
+      }
+    }
 
     if (obj["name"].is<const char*>()) {
       nameOut = obj["name"].as<const char*>();

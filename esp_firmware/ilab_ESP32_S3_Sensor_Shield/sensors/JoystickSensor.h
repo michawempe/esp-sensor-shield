@@ -1,8 +1,11 @@
 #pragma once
 #include "SensorBase.h"
 #include "MappingUtils.h"
+#include "SmoothingFilter.h"
 
 class JoystickSensor : public SensorBase {
+  SmoothingFilter smoothing;
+  SmoothingFilter smoothingY;
   uint8_t pinX;
   uint8_t pinY;
 
@@ -48,6 +51,8 @@ public:
   }
 
   void begin() override {
+    smoothing.reset();
+    smoothingY.reset();
     analogSetPinAttenuation(pinX, ADC_11db);
     analogSetPinAttenuation(pinY, ADC_11db);
   }
@@ -59,8 +64,9 @@ public:
     const float nX = normalizeAxis(rawX, midCutoff, edgeCutoff);
     const float nY = normalizeAxis(rawY, midCutoff, edgeCutoff);
 
-    valueX = mapClamped(nX, -1.0f, 1.0f, outMin, outMax);
-    valueY = mapClamped(nY, -1.0f, 1.0f, outMin, outMax);
+    const uint32_t nowMs = millis();
+    valueX = smoothing.update(mapClamped(nX, -1.0f, 1.0f, outMin, outMax), nowMs, smoothingMs);
+    valueY = smoothingY.update(mapClamped(nY, -1.0f, 1.0f, outMin, outMax), nowMs, smoothingMs);
   }
 
   void appendJson(String& json) override {
@@ -89,6 +95,7 @@ public:
     appendFloat(json, outMin);
     json += ",\"outMax\":";
     appendFloat(json, outMax);
+    appendSmoothingJson(json);
     json += "}";
   }
 };

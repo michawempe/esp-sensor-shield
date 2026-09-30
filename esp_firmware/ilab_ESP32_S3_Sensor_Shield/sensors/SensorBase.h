@@ -17,7 +17,16 @@ public:
   virtual void read() = 0;
   virtual void appendJson(String& json) = 0;
 
+  void setSmoothingMs(uint32_t ms) { smoothingMs = ms; }
+
 protected:
+  uint32_t smoothingMs = 0;
+
+  void appendSmoothingJson(String& json) const {
+    json += ",\"smoothingMs\":";
+    json += smoothingMs;
+  }
+
   void setPortId(const char* pid) {
     strncpy(portId, pid, sizeof(portId) - 1);
     portId[sizeof(portId) - 1] = '\0';

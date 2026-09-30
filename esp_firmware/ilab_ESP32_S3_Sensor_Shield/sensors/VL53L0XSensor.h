@@ -1,6 +1,7 @@
 #pragma once
 #include "SensorBase.h"
 #include "MappingUtils.h"
+#include "SmoothingFilter.h"
 
 #include <Wire.h>
 #include <VL53L0X.h>
@@ -13,6 +14,7 @@
 #endif
 
 class VL53L0XSensor : public SensorBase {
+  SmoothingFilter smoothing;
   static constexpr int MEDIAN_SIZE = 5;
 
   // ESP32-S3 has two hardware I2C controllers (bus 0 and 1).
@@ -160,6 +162,7 @@ public:
   }
 
   void begin() override {
+    smoothing.reset();
     hasReading = false;
     rawMm = 0;
     value = NAN;
@@ -234,6 +237,7 @@ public:
 #if ILAB_VL53_DIAGNOSTICS
       ++timeouts;
 #endif
+      smoothing.reset();
       readError = "measurement_timeout";
       return;
     }
@@ -241,6 +245,7 @@ public:
 #if ILAB_VL53_DIAGNOSTICS
       ++invalidReads;
 #endif
+      smoothing.reset();
       readError = "out_of_range";
       return;
     }
@@ -252,7 +257,7 @@ public:
     idx = (idx + 1) % MEDIAN_SIZE;
     rawMm = median5(buf);
     hasReading = true;
-    value = mapClamped((float)rawMm, inMin, inMax, outMin, outMax);
+    value = smoothing.update(mapClamped((float)rawMm, inMin, inMax, outMin, outMax), millis(), smoothingMs);
   }
 
   void appendJson(String& json) override {
@@ -307,6 +312,7 @@ public:
     appendFloat(json, outMin);
     json += ",\"outMax\":";
     appendFloat(json, outMax);
+    appendSmoothingJson(json);
     json += "}";
   }
 };

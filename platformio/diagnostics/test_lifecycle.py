@@ -139,7 +139,7 @@ with tempfile.TemporaryDirectory(prefix='vl53-lifecycle-') as tmp:
     d = Path(tmp)
     for sub in ['sensors', 'runtime']:
         (d/sub).mkdir()
-    for f in ['sensors/SensorBase.h', 'sensors/MappingUtils.h', 'runtime/SensorManager.h']:
+    for f in ['sensors/SensorBase.h', 'sensors/MappingUtils.h', 'sensors/SmoothingFilter.h', 'runtime/SensorManager.h']:
         shutil.copyfile(FIRMWARE/f, d/f)
     for name, code in [('Arduino.h', ARDUINO), ('Wire.h', WIRE), ('VL53L0X.h', LOX), ('test.cpp', TEST)]:
         (d/name).write_text(code)
