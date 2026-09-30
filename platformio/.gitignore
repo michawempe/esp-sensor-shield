@@ -1,0 +1,5 @@
+.pio/
+.pio-core/
+.vscode/
+compile_commands.json
+__pycache__/

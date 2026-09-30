@@ -6,13 +6,16 @@ An ESP32-S3 sensor integration system for physical computing workshops. Sensors 
 
 ```
 esp_firmware/   Arduino firmware — sensor reading, Serial I/O, config persistence
+platformio/     Reproducible firmware build/upload — pinned dependencies, German guide
 web/            Browser UI — config editor and workshop demo page
 ```
 
 ## Quick Start
 
-1. Flash the firmware via Arduino IDE
-   → `esp_firmware/ilab_ESP32_S3_Sensor_Shield/`
+1. Flash the firmware via PlatformIO IDE
+   → [Setup and upload guide (Deutsch)](platformio/README.md)
+   → Open `platformio/` as the PlatformIO project; the original sketch stays in `esp_firmware/`.
+   Arduino IDE is also supported; see [firmware documentation](esp_firmware/README.md).
 
 2. Open `web/admin/index.html` in Chrome or Edge
    → Connect via USB, configure which sensor is on which port, load/send a preset

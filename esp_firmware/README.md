@@ -5,9 +5,16 @@ Reads sensors, streams JSON over USB Serial at ~5 Hz, persists config in NVS.
 
 ## Flash
 
+Recommended: use the [PlatformIO project and upload guide (Deutsch)](../platformio/README.md).
+It compiles this same sketch with pinned dependencies and the documented USB/flash settings.
+
+Alternatively, with Arduino IDE:
 Open `ilab_ESP32_S3_Sensor_Shield/ilab_ESP32_S3_Sensor_Shield.ino` in Arduino IDE.
-Required libraries: `ArduinoJson`, `VL53L0X` (Pololu).
-Board: `ESP32S3 Dev Module`, baud: `115200`.
+Arduino-ESP32 core: `3.3.7`. Required libraries: `ArduinoJson 7.4.2`, `VL53L0X 1.3.1` (Pololu).
+Board: `ESP32S3 Dev Module`, monitor baud: `115200`, upload speed: `115200`.
+For the Waveshare ESP32-S3-DEV-KIT-N8R8 use USB-OTG (TinyUSB), CDC on boot enabled,
+8 MB QIO flash at 80 MHz, the 8 MB SPIFFS partition scheme and PSRAM disabled.
+See the PlatformIO guide for the complete settings table.
 
 ---
 
