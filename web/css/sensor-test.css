@@ -1,0 +1,70 @@
+@font-face { font-family: "GT Haptik"; src: url("../admin/font/GT-Haptik-Regular-Trial.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+:root { color-scheme: light; --bg: #e6e6e6; --panel: #fff; --ink: #000; --muted: #626262; --line: #d7d7d7; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: "GT Haptik", "Avenir Next", "Trebuchet MS", sans-serif; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+.app { max-width: 1440px; margin: 28px auto; padding: 0 24px 24px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.eyebrow { margin: 0 0 10px; font-size: 13px; letter-spacing: .045em; }
+h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 400; margin: 0; letter-spacing: -.035em; }
+nav { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; border: 1.4px solid #000; border-radius: 8px; padding: 0 16px; color: #000; background: #fff; text-decoration: none; cursor: pointer; font-size: 15px; }
+.btn.primary { color: #fff; background: #000; }
+.btn:hover { background: #f2f2f2; }
+.btn.primary:hover { background: #333; }
+.btn:disabled { opacity: .5; cursor: wait; }
+:focus-visible { outline: 3px solid #666; outline-offset: 4px; }
+.intro { margin: 48px 0 26px; }
+.intro > p:first-child { margin: 0 0 8px; font-size: 22px; }
+.hint, footer { font-size: 14px; line-height: 1.6; color: var(--muted); }
+.hint { margin: 0; }
+.telemetry { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.4px solid #000; border-radius: 12px; overflow: hidden; background: #fff; }
+.telemetry > div { display: flex; flex-direction: column; gap: 6px; padding: 20px 24px; border-right: 1px solid var(--line); }
+.telemetry > div:last-child { border-right: 0; }
+.telemetry span { color: var(--muted); font-size: 12px; }
+.telemetry .metric-label { color: #000; font-size: 13px; }
+.telemetry strong { font-size: 34px; font-weight: 400; font-variant-numeric: tabular-nums; }
+.connection-status { margin: 18px 0 26px; min-height: 20px; font-size: 14px; }
+.connection-status.error { color: #a52323; }
+.sensor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.sensor-card { min-width: 0; background: #fff; border: 1.4px solid #000; border-radius: 14px; padding: 24px; }
+.card-head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.card-head h2 { margin: 0 0 5px; font-size: 22px; font-weight: 400; overflow-wrap: anywhere; }
+.card-name { margin: 0; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
+.zoom { border: 0; border-bottom: 1px solid #000; background: none; padding: 4px 0; font-size: 12px; cursor: pointer; flex-shrink: 0; }
+.visual { display: block; width: 100%; max-width: 510px; margin: 12px auto; overflow: visible; }
+.guide { fill: none; stroke: #ddd; stroke-width: 1; }
+.outline { fill: none; stroke: #000; stroke-width: 1.2; }
+.axis { stroke: #d7d7d7; stroke-width: 1; stroke-dasharray: 3 5; }
+.shape, .marker { fill: #000; }
+.needle { stroke: #000; stroke-width: 2; }
+.state-label { font: 20px "GT Haptik", sans-serif; text-anchor: middle; dominant-baseline: middle; }
+.readout { display: flex; align-items: baseline; gap: 10px; justify-content: space-between; }
+.value { font-size: clamp(28px, 4vw, 46px); line-height: 1.2; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.unit { color: var(--muted); font-size: 12px; flex-shrink: 0; }
+.raw { min-height: 20px; margin: 7px 0 0; color: var(--muted); font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
+.card-note { min-height: 20px; margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+.history { width: 100%; height: 52px; display: block; margin-top: 18px; border-bottom: 1px solid var(--line); }
+.history path { fill: none; stroke: #000; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.history .secondary { stroke: #999; }
+.history-label { margin: 6px 0 0; font-size: 11px; color: var(--muted); }
+.sensor-card.stale .visual, .sensor-card.stale .history { opacity: .18; }
+.sensor-card.stale .value { color: #888; }
+.sensor-card.expanded { grid-column: 1 / -1; }
+.sensor-card.expanded .visual { max-width: 720px; }
+footer { margin: 32px 0 0; max-width: 900px; }
+footer p { margin: 8px 0; }
+@media (min-width: 1600px) { .app { max-width: 1560px; } }
+@media (max-width: 700px) {
+  .app { padding: 0 14px 20px; margin: 20px auto; }
+  .intro { margin-top: 30px; }
+  .telemetry { grid-template-columns: repeat(2, 1fr); }
+  .telemetry > div { padding: 16px; }
+  .telemetry > div:nth-child(2) { border-right: 0; }
+  .telemetry > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .sensor-grid { grid-template-columns: 1fr; }
+  .sensor-card { padding: 18px; }
+  .value { font-size: 32px; }
+}

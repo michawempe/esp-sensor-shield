@@ -156,7 +156,12 @@ function init() {
     Object.assign(sensors, next);
   }
 
+  // Limit console work; state and events still receive every sensor frame.
+  let lastSensorLogMs = -Infinity;
   function logSensorValues(snapshot) {
+    const now = performance.now();
+    if (now - lastSensorLogMs < 100) return;
+    lastSensorLogMs = now;
     const values = {};
     for (const [key, sensor] of Object.entries(snapshot || {})) {
       values[key] = sensor?.value;
