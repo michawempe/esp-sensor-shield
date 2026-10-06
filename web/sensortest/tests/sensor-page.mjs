@@ -4,7 +4,7 @@ import fs from 'node:fs';
 const { chromium } = await import(process.env.ILAB_PLAYWRIGHT_MODULE || 'playwright-core');
 const artifactDir = process.env.ILAB_SCREENSHOT_DIR || '/tmp/ilab-sensor-page';
 fs.mkdirSync(artifactDir, { recursive: true });
-const fixture = JSON.parse(fs.readFileSync(new URL('../../platformio/diagnostics/continuous-test/normal-verification.json', import.meta.url), 'utf8'))[0].last_frame;
+const fixture = JSON.parse(fs.readFileSync(new URL('../../../platformio/diagnostics/continuous-test/normal-verification.json', import.meta.url), 'utf8'))[0].last_frame;
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
 const errors = [];
@@ -42,7 +42,7 @@ await page.addInitScript(frame => {
   window.__sensorTest = { frame, pause, resume, animate: true };
 }, fixture);
 try {
-  await page.goto(process.env.ILAB_TEST_URL || 'http://127.0.0.1:8765');
+  await page.goto(process.env.ILAB_TEST_URL || 'http://127.0.0.1:8765/sensortest/');
   await page.waitForSelector('.sensor-card');
   assert.equal(await page.locator('.sensor-card').count(), 10);
   await page.getByRole('button', { name: 'Board verbinden', exact: true }).click();

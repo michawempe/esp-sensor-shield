@@ -1,0 +1,4 @@
+# Reproducible raw captures and upload output; keep compact summaries.
+*.jsonl
+*.log
+__pycache__/

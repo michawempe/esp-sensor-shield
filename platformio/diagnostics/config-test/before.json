@@ -1,0 +1,119 @@
+[
+  {
+    "phase": "baseline",
+    "frames": 101,
+    "errors": {},
+    "events": []
+  },
+  {
+    "phase": "slider_100",
+    "frames": 148,
+    "errors": {
+      "sound1:sound_not_ready": 148,
+      "slider1:adc_not_ready": 142,
+      "light1:adc_not_ready": 142,
+      "joystick1:adc_not_ready": 142
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "slider_250",
+    "frames": 149,
+    "errors": {
+      "sound1:sound_not_ready": 149,
+      "distance1:None": 1,
+      "slider1:adc_not_ready": 143,
+      "light1:adc_not_ready": 143,
+      "joystick1:adc_not_ready": 143
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "slider_0",
+    "frames": 149,
+    "errors": {
+      "sound1:sound_not_ready": 149,
+      "distance1:None": 1,
+      "slider1:adc_not_ready": 143,
+      "light1:adc_not_ready": 143,
+      "joystick1:adc_not_ready": 143
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "slider_25",
+    "frames": 149,
+    "errors": {
+      "sound1:sound_not_ready": 1,
+      "distance1:None": 1
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "slider_1000",
+    "frames": 148,
+    "errors": {
+      "sound1:sound_not_ready": 148,
+      "slider1:adc_not_ready": 142,
+      "light1:adc_not_ready": 142,
+      "joystick1:adc_not_ready": 142
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "slider_50",
+    "frames": 149,
+    "errors": {
+      "sound1:sound_not_ready": 1,
+      "distance1:None": 1
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  },
+  {
+    "phase": "restored",
+    "frames": 149,
+    "errors": {
+      "sound1:sound_not_ready": 149,
+      "distance1:None": 1,
+      "slider1:adc_not_ready": 143,
+      "light1:adc_not_ready": 143,
+      "joystick1:adc_not_ready": 143
+    },
+    "events": [
+      {
+        "status": "config_applied",
+        "persisted": true
+      }
+    ]
+  }
+]

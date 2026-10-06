@@ -1,4 +1,4 @@
-@font-face { font-family: "GT Haptik"; src: url("../admin/font/GT-Haptik-Regular-Trial.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "GT Haptik"; src: url("../../admin/font/GT-Haptik-Regular-Trial.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
 :root { color-scheme: light; --bg: #e6e6e6; --panel: #fff; --ink: #000; --muted: #626262; --line: #d7d7d7; }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }

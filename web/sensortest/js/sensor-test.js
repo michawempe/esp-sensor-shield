@@ -1,5 +1,5 @@
-import { SerialJsonClient } from '../shared/serial.js';
-import { resolveIlabPortForConnect } from '../shared/core.js';
+import { SerialJsonClient } from '../../shared/serial.js';
+import { resolveIlabPortForConnect } from '../../shared/core.js';
 import { TYPES, finite, visualState } from './sensor-visuals.js';
 
 const grid = document.getElementById('sensorGrid');

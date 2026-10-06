@@ -1,0 +1,261 @@
+[
+  {
+    "phase": "0:B2:0ms",
+    "frames": 61,
+    "hz": 50.093612437403806,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "1:B3:0ms",
+    "frames": 60,
+    "hz": 50.01567580305438,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "2:B4:0ms",
+    "frames": 60,
+    "hz": 49.86333887132653,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "3:C1:0ms",
+    "frames": 61,
+    "hz": 50.17348175308959,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "4:C3:0ms",
+    "frames": 60,
+    "hz": 49.85946741402263,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "5:B2:25ms",
+    "frames": 60,
+    "hz": 49.96447618850491,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "6:B3:25ms",
+    "frames": 60,
+    "hz": 49.911884037291145,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "7:B4:25ms",
+    "frames": 60,
+    "hz": 49.88901102996135,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "8:C1:25ms",
+    "frames": 61,
+    "hz": 49.682206400781645,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "9:C3:25ms",
+    "frames": 61,
+    "hz": 50.06386793667582,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "10:B2:100ms",
+    "frames": 61,
+    "hz": 49.97816403980202,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "11:B3:100ms",
+    "frames": 60,
+    "hz": 49.978185707379225,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "12:B4:100ms",
+    "frames": 60,
+    "hz": 50.02322408764965,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "13:C1:100ms",
+    "frames": 61,
+    "hz": 50.03932081420273,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "14:C3:100ms",
+    "frames": 60,
+    "hz": 49.89581605563703,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "15:B2:250ms",
+    "frames": 60,
+    "hz": 49.95567669909201,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "16:B3:250ms",
+    "frames": 61,
+    "hz": 50.1073898651723,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "17:B4:250ms",
+    "frames": 60,
+    "hz": 49.96407417992084,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "18:C1:250ms",
+    "frames": 60,
+    "hz": 49.90820734494754,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "19:C3:250ms",
+    "frames": 60,
+    "hz": 49.956503254324275,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "20:B2:1000ms",
+    "frames": 60,
+    "hz": 49.95527838355241,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "21:B3:1000ms",
+    "frames": 61,
+    "hz": 50.050761524358784,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "22:B4:1000ms",
+    "frames": 61,
+    "hz": 49.9664582660198,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "23:C1:1000ms",
+    "frames": 60,
+    "hz": 50.02600220148911,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "24:C3:1000ms",
+    "frames": 61,
+    "hz": 49.99883160988885,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "25:B2:10000ms",
+    "frames": 60,
+    "hz": 49.95791151815506,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "26:B3:10000ms",
+    "frames": 61,
+    "hz": 50.07324777259008,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "27:B4:10000ms",
+    "frames": 60,
+    "hz": 50.01918990558695,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "28:C1:10000ms",
+    "frames": 61,
+    "hz": 50.13107710126992,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "29:C3:10000ms",
+    "frames": 61,
+    "hz": 50.179956112090245,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "30:B2:0ms",
+    "frames": 61,
+    "hz": 50.16105183758107,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "31:B3:0ms",
+    "frames": 60,
+    "hz": 50.00719031415402,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "32:B4:0ms",
+    "frames": 61,
+    "hz": 49.99811119589282,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "33:C1:0ms",
+    "frames": 60,
+    "hz": 50.040309631145035,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "34:C3:0ms",
+    "frames": 61,
+    "hz": 50.03671093430278,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "35:B2:25ms",
+    "frames": 61,
+    "hz": 50.01948500704534,
+    "errors": {},
+    "persisted": true
+  },
+  {
+    "phase": "restored",
+    "frames": 61,
+    "hz": 50.021047063676974,
+    "errors": {},
+    "persisted": true
+  }
+]

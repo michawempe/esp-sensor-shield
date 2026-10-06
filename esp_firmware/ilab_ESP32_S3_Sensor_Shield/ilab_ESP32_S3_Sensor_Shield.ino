@@ -84,8 +84,12 @@ static void printBool(bool value) {
 
 static void handleConfigJson(const String& cfgLine) {
   String err;
-  if (configManager.apply(cfgLine, err)) {
+  // Flash writes suspend non-IRAM ADC interrupts in this Arduino build. Starting
+  // DMA before NVS persistence can leave acquisition stalled after a config edit.
+  if (configManager.apply(cfgLine, err, false)) {
     const bool persisted = persistConfig(cfgLine);
+    // Resume acquisition even when saving fails; the RAM config is still active.
+    sensorManager.startSampling();
     Serial.print("{\"status\":\"config_applied\",\"persisted\":");
     printBool(persisted);
     Serial.println("}");

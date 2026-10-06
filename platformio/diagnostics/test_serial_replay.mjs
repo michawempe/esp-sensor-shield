@@ -5,10 +5,17 @@ import assert from 'node:assert/strict';
 import { performance } from 'node:perf_hooks';
 const source = fs.readFileSync(new URL('../../web/shared/serial.js', import.meta.url),'utf8');
 const { SerialJsonClient } = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
-const rows = fs.readFileSync(process.argv[2] || new URL('./stress-test/frames.jsonl',import.meta.url),'utf8')
-  .trim().split('\n').map(JSON.parse).filter(r=>r.phase===(process.argv[3] || '11_inputs_1ms'));
-assert.ok(rows.length>100,'Complete hardware rate sweep first');
-const lines=rows.slice(0,1000).map(r=>r.line);
+// A small recorded fixture keeps the default test independent of large local logs.
+let lines;
+if (process.argv[2]) {
+  const rows = fs.readFileSync(process.argv[2], 'utf8').trim().split('\n')
+    .map(JSON.parse).filter(r => r.phase === (process.argv[3] || 'all_nine_120s'));
+  assert.ok(rows.length > 100, 'Selected recording must contain at least 101 frames');
+  lines = rows.slice(0, 1000).map(r => r.line);
+} else {
+  const fixture = JSON.parse(fs.readFileSync(new URL('./continuous-test/normal-verification.json', import.meta.url), 'utf8'))[0].last_frame;
+  lines = Array.from({ length: 200 }, () => JSON.stringify(fixture) + '\n');
+}
 lines.push(JSON.stringify({data:{'Größe🎛':{value:1}},text:'\n\r"\\'})+'\r\n');
 const expected=[...lines,lines[0]].map(JSON.parse);
 const payload=Buffer.from(lines.join('')+'broken json\n'+lines[0]);

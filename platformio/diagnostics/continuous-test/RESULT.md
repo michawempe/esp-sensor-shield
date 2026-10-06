@@ -105,7 +105,7 @@ python diagnostics/test_continuous_device.py
 python diagnostics/test_continuous_device.py --edges
 python diagnostics/test_analog_sampler.py
 python diagnostics/test_lifecycle.py
-node diagnostics/test_serial_replay.mjs diagnostics/continuous-test/frames.jsonl all_nine_120s
+node diagnostics/test_serial_replay.mjs
 pio run -e sensor-shield -t upload
 python diagnostics/verify_stress_normal.py --out diagnostics/continuous-test --min-hz 49 --reapply
 ```
@@ -133,3 +133,11 @@ angewendet und erfolgreich in NVS gespeichert (`persisted: true`). Auch der
 Timeout bei unvollständiger Eingabe und das Zurückweisen einer ungültigen
 Konfiguration bestanden im normalen Build. Belege: `normal-verification.json`.
 Der Test hat den seriellen Port geschlossen; er ist wieder für die Website frei.
+
+## Ergänzung: gespeicherte Glättungsänderungen
+
+Die RAM-Konfigurationswechsel dieses Tests deckten einen Fehler beim Speichern
+geänderter Einstellungen nicht ab. Der [gezielte NVS-Test](../config-test/RESULT.md)
+dokumentiert die spätere Reproduktion und Korrektur. Die obigen Messungen sind
+historische Ergebnisse des damaligen Builds. Große Rohlogs wurden beim Aufräumen
+entfernt; die kompakten Zusammenfassungen bleiben erhalten.

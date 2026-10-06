@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ilab · Sensor-Test</title>
+  <link rel="stylesheet" href="css/sensor-test.css" />
+  <script type="module" src="js/sensor-test.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="top">
+      <div><p class="eyebrow">ilab ESP32-S3 SENSOR BOARD</p><h1>Sensor-Test</h1></div>
+      <nav aria-label="Verbindung und Konfiguration">
+        <a class="btn" href="../admin/">Konfiguration</a>
+        <button class="btn primary" id="connect" type="button">Board verbinden</button>
+      </nav>
+    </header>
+    <section class="intro">
+      <p>Bewegen. Drehen. Antippen.</p>
+      <p class="hint">Jeder Kreis folgt dem aktuellen Sensorwert. Mit „Vergrößern“ siehst du kleine Veränderungen noch genauer.</p>
+    </section>
+    <section class="telemetry" aria-label="Verbindungsqualität">
+      <div><span class="metric-label">Daten vom Board</span><strong id="rate">—</strong><span>Pakete / s</span></div>
+      <div><span class="metric-label">Darstellung</span><strong id="fps">—</strong><span>Frames / s</span></div>
+      <div><span class="metric-label">Größte Paketpause¹</span><strong id="gap">—</strong><span>ms</span></div>
+      <div><span class="metric-label">Aktive Sensoren</span><strong id="count">—</strong><span id="source">USB Serial</span></div>
+    </section>
+    <p class="connection-status" id="status" role="status">Verbinde dein Board, um die Sensoren live zu sehen.</p>
+    <section class="sensor-grid" id="sensorGrid" aria-label="Live-Sensoren"></section>
+    <footer>
+      <p>Die Kreise zeigen die konfigurierten Werte ohne zusätzliche Glättung im Browser. Die Darstellung übernimmt pro Bildschirm-Frame den neuesten Wert.</p>
+      <p>¹ Größter Abstand zwischen empfangenen Paketen in der letzten Sekunde. Das ist keine Messung der gesamten Sensorlatenz.</p>
+    </footer>
+  </main>
+</body>
+</html>

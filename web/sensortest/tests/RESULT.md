@@ -19,9 +19,19 @@ Die Browserprüfung ist keine Bestätigung des nativen USB-Auswahldialogs. Diese
 muss beim ersten Verbinden in normalem Chrome/Edge bedient werden und ließ sich
 in der Headless-Prüfung nicht automatisiert abschließen. Die echte Firmware und
 USB-Ausgabe wurden separat am Gerät geprüft, siehe
-[Hardware-Messbericht](../../platformio/diagnostics/continuous-test/RESULT.md).
+[Hardware-Messbericht](../../../platformio/diagnostics/continuous-test/RESULT.md).
 
 Die Kreise übernehmen Messwerte ohne zusätzliche zeitliche Glättung. Gemeinsame
 Zahlenformatierung und unveränderte DOM-Werte werden wiederverwendet, um unnötige
 Arbeit bei jedem Paket zu vermeiden. Auf anderen Rechnern oder in Hintergrund-
 Tabs können Bild- und Empfangsraten abweichen; die Seite zeigt diese live an.
+
+## Prüfung nach Verschiebung nach `sensortest/`
+
+Startseite mit ursprünglichem Popup und Config-Link im Browser geprüft.
+Der Sensor-Test läuft unter `/sensortest/`; Zuordnungstests und sämtliche
+Browser-Funktionsszenarien bestanden. Im aktuellen Lauf wurden 50 Pakete/s und
+30 FPS beobachtet. Die ursprüngliche Performance-Prüfung mit mindestens 40 FPS
+schlug deshalb fehl. Für die separate Funktionsprüfung wurde nur im ausgeführten
+Testcode die Grenze auf 25 FPS gesetzt; der gespeicherte Benchmark bleibt bei
+40 FPS. Die früher gemessenen 54–60 FPS wurden in diesem Lauf nicht bestätigt.

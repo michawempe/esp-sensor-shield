@@ -53,7 +53,7 @@ Bei gespeicherter Konfiguration steht dort `stored`. Für einen vollständigen H
 
 ### Abstandssensor liefert `null`
 
-Buildvergleich, Lifecycle-Regressionstest und Gerätetests sind in [diagnostics/ROOT_CAUSE_ANALYSIS.md](diagnostics/ROOT_CAUSE_ANALYSIS.md) dokumentiert. Diagnose-Build: `pio run -e sensor-shield-diagnostics`. Am Gerät trat nach erneuter Konfiguration trotz erfolgreicher Busreservierung ein weiterer Fehler auf: Der VL53L0X behielt den vom vorherigen Betrieb veränderten internen Zustand. Die Firmware setzt deshalb jeden Sensor vor `init()` definiert zurück. Der Diagnose-Build protokolliert zusätzlich Registerzustand, Initialisierung und Messfehler.
+Buildvergleich, Lifecycle-Regressionstest und Gerätetests sind in [diagnostics/README.md](diagnostics/README.md) dokumentiert. Diagnose-Build: `pio run -e sensor-shield-diagnostics`. Am Gerät trat nach erneuter Konfiguration trotz erfolgreicher Busreservierung ein weiterer Fehler auf: Der VL53L0X behielt den vom vorherigen Betrieb veränderten internen Zustand. Die Firmware setzt deshalb jeden Sensor vor `init()` definiert zurück. Der Diagnose-Build protokolliert zusätzlich Registerzustand, Initialisierung und Messfehler.
 
 Bei einem VL53L0X bedeuten `raw: null` und `value: null`, dass keine gültige Messung vorliegt. Die Sensordaten enthalten dann zusätzlich `error`:
 
@@ -125,7 +125,7 @@ Die Pinbelegung des Shields kommt weiterhin aus [`PortMap.h`](../esp_firmware/il
 
 ## Dateien und Wartung
 
-**Abgleich vom 30.09.2026:** Der lokal gefundene Arduino-Buildcache dieses Sketches verwendet 4 MB Flash und `PartitionScheme=default`, während PlatformIO 8 MB verwendet. Die obige Tabelle beschreibt die beabsichtigte Zuordnung; vollständige Gleichheit mit dem tatsächlich erfolgreichen Arduino-Gerätetest ist nicht belegt. Core, Bibliotheken und relevante Compiler-/SDK-Einstellungen stimmen im lokalen Vergleich überein. Einzelheiten und Belege stehen in der [Analyse](diagnostics/ROOT_CAUSE_ANALYSIS.md).
+**Abgleich vom 30.09.2026:** Der lokal gefundene Arduino-Buildcache dieses Sketches verwendet 4 MB Flash und `PartitionScheme=default`, während PlatformIO 8 MB verwendet. Die obige Tabelle beschreibt die beabsichtigte Zuordnung; vollständige Gleichheit mit dem tatsächlich erfolgreichen Arduino-Gerätetest ist nicht belegt. Core, Bibliotheken und relevante Compiler-/SDK-Einstellungen stimmen im lokalen Vergleich überein. Einzelheiten und Belege stehen in der [Analyse](diagnostics/README.md).
 
 - `platformio.ini`: Boardparameter, Versionen, Upload und Monitor.
 - `partitions.csv`: übernommenes Arduino-8-MB-Layout inklusive NVS und zwei App-Slots.

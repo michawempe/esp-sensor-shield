@@ -6,14 +6,21 @@ Browser-based interface for the ESP Sensor Shield. Requires Chrome or Edge (WebS
 
 | Page | Path | Purpose |
 |---|---|---|
-| Sensor test | `index.html` | Large live circles, raw values, history and connection metrics |
+| Frontend | `index.html` | Empty page with startup popup for board connection and config editor |
+| Sensor test | `sensortest/index.html` | Large live circles, raw values, history and connection metrics |
 | Config editor | `admin/index.html` | Configure sensors per port, load/send presets |
 
 Serve locally with any static file server, e.g. VS Code Live Server Extension.
 
 ---
 
-## Sensor Test (`index.html`)
+## Frontend (`index.html`)
+
+The empty starting page loads `js/main.js`. Its startup popup links to the config
+editor and connects the board. After connecting, the popup closes and sensor data
+is available through `window.sensors` and the events described below.
+
+## Sensor Test (`sensortest/index.html`)
 
 The page connects to the ESP via WebSerial and keeps `window.sensors` up to date.
 Use **Board verbinden** in the header to connect; the same button disconnects.
@@ -35,8 +42,8 @@ types.
 
 Rendering uses `requestAnimationFrame` and the latest received values, with no
 extra interpolation. Histories repaint at most ten times per second. The page
-loads `js/sensor-test.js`; `js/main.js` remains available as a minimal connection
-helper for separate workshop pages.
+loads `sensortest/js/sensor-test.js`. Its CSS, JavaScript and tests live inside
+`sensortest/`; the serial helpers in `shared/` and the existing admin font are reused.
 
 ### Reading sensor data
 
@@ -138,11 +145,11 @@ window.addEventListener("sensors-updated", (e) => {
 ## Test the visualization
 
 ```sh
-node tests/sensor-visuals.mjs
+node sensortest/tests/sensor-visuals.mjs
 ```
 
 For the Chrome integration test, serve `web` on localhost port 8765 and install
-`playwright-core` in a temporary directory. Run `tests/sensor-page.mjs` with
+`playwright-core` in a temporary directory. Run `sensortest/tests/sensor-page.mjs` with
 `ILAB_PLAYWRIGHT_MODULE` pointing to that installation's `index.mjs` (or install
 the module locally). Optional settings: `ILAB_TEST_URL`, `ILAB_SCREENSHOT_DIR`.
 The test uses a simulated Web Serial port with recorded hardware data at 50 Hz;

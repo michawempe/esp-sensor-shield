@@ -20,7 +20,7 @@
 
 class ConfigManager {
 public:
-  bool apply(const String& jsonStr, String& errorMessage) {
+  bool apply(const String& jsonStr, String& errorMessage, bool startSampling = true) {
     static constexpr size_t CONFIG_DOC_CAPACITY = 8192;
     const size_t jsonLen = jsonStr.length();
     std::unique_ptr<char[]> mutableJson(new (std::nothrow) char[jsonLen + 1]);
@@ -110,7 +110,7 @@ public:
       sensorManager.add(s);
     }
 
-    sensorManager.startSampling();
+    if (startSampling) sensorManager.startSampling();
 
     currentConfigJson = jsonStr;
     currentConfigJson.trim();
