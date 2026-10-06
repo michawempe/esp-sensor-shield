@@ -1,6 +1,7 @@
 #pragma once
 #include <Arduino.h>
 #include <vector>
+#include "AnalogSampler.h"
 #include "../sensors/SensorBase.h"
 
 class SensorManager {
@@ -8,6 +9,7 @@ class SensorManager {
 
 public:
   void clear() {
+    analogSampler.reset();
     for (auto s : sensors) delete s;
     sensors.clear();
   }
@@ -15,6 +17,15 @@ public:
   void add(SensorBase* s) {
     sensors.push_back(s);
     s->begin();
+  }
+
+  void startSampling() {
+    if (!analogSampler.start()) Serial.println("{\"error\":\"adc_start_failed\"}");
+  }
+
+  void serviceAll() {
+    analogSampler.poll();
+    for (auto s : sensors) s->service();
   }
 
   void readAll() {

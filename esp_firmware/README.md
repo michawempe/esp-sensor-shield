@@ -1,7 +1,7 @@
 # Firmware
 
 Arduino sketch for the ilab ESP32-S3 Sensor Shield.
-Reads sensors, streams JSON over USB Serial at up to 25 Hz (depending on sensor read times), persists config in NVS.
+Acquires sensors independently, streams their latest values over USB Serial at 50 Hz, and persists configuration in NVS.
 
 ## Flash
 
@@ -94,7 +94,7 @@ If omitted, names are auto-generated in port order: `slider1`, `button2`, etc.
 
 ## Serial Output Format
 
-Frames are scheduled every 40 ms; blocking sensor reads can increase the interval:
+Frames are scheduled every 20 ms. Configuration changes and USB backpressure can interrupt output:
 
 ```json
 {"data":{"mySlider":{"type":"slider","port":"B1","raw":2048,"value":0.5,"inMin":0,"inMax":4095,"outMin":0,"outMax":1}}}
@@ -103,7 +103,30 @@ Frames are scheduled every 40 ms; blocking sensor reads can increase the interva
 - `raw`: unprocessed sensor reading
 - `value`: mapped output value
 - For `joystick`: `value` and `raw` are objects `{"x":..., "y":...}`
-- For `distance`: `raw` and `value` are `null` on timeout or out-of-range
+- For `distance`: `raw` and `value` are `null` on timeout, I²C error or out-of-range
+- ADC and sound values can briefly be `null` with `adc_not_ready` / `sound_not_ready` during startup or recovery
+
+### Acquisition
+
+ADC1 inputs share a DMA scan; do not call `analogRead()` on ADC1 in new sensor
+classes. Register the pin with `analogSampler.addPin()` in `begin()`, check
+`analogSampler.ready()` and read its latest value with `analogSampler.read()`.
+ADC2 remains available for oneshot reads. Configuration changes stop DMA before
+old sensors are deleted and start it after all new sensors have initialized.
+
+Sound uses nominal 16 kHz per channel and 320-sample peak-to-peak windows. Above
+five active ADC1 channels, the per-channel rate and window size decrease to keep
+the configured aggregate rate at or below 80 kHz; the window rate remains 50 Hz.
+Without sound, ADC1 uses 1 kHz per channel. Actual sample rates depend on hardware
+clock division (about 16.13 kHz in the tested mixed configuration).
+
+Distance uses a 20 ms timing budget, polled without waiting via `service()`.
+It keeps the last valid reading while the next is being measured and marks it
+invalid after 100 ms without a result. The shorter timing budget may increase
+noise compared with the previous 200 ms setting. The median filter is seeded
+with the first valid reading to avoid artificial zeroes at startup.
+
+See the [hardware results](../platformio/diagnostics/continuous-test/RESULT.md).
 
 ---
 

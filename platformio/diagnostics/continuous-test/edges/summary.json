@@ -1,0 +1,1062 @@
+[
+  {
+    "phase": "single_slider",
+    "frames": 250,
+    "hz": 49.99376207353235,
+    "p99_ms": 21.066665998660028,
+    "max_ms": 21.124666003743187,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 253044,
+    "heap_last": 253044,
+    "sensors": {
+      "slider1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "single_sound",
+    "frames": 250,
+    "hz": 49.97991728633557,
+    "p99_ms": 21.611791991745122,
+    "max_ms": 21.740791999036446,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 253056,
+    "heap_last": 253056,
+    "sensors": {
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16025.689939204867,
+        "window_hz": 50.2007628909535,
+        "configured_hz": 16000,
+        "age_max_ms": 18,
+        "overflows": 0
+      }
+    }
+  },
+  {
+    "phase": "empty",
+    "frames": 250,
+    "hz": 49.99877053223506,
+    "p99_ms": 20.445500005735084,
+    "max_ms": 21.439250005641952,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 287920,
+    "heap_last": 287920,
+    "sensors": {}
+  },
+  {
+    "phase": "lifecycle_0",
+    "frames": 100,
+    "hz": 49.998265009365596,
+    "p99_ms": 21.631291005178355,
+    "max_ms": 22.070417006034404,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249520,
+    "heap_last": 249520,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16132.103826171733,
+        "window_hz": 50.51385216110888,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 54.55496033399759,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_1",
+    "frames": 101,
+    "hz": 49.99349564646158,
+    "p99_ms": 21.862041001440957,
+    "max_ms": 21.9388339901343,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249516,
+    "heap_last": 249516,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.03225606451,
+        "window_hz": 50.0001000002,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.00011000022,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_2",
+    "frames": 101,
+    "hz": 50.01650021824763,
+    "p99_ms": 21.157584007596597,
+    "max_ms": 21.742790995631367,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249472,
+    "heap_last": 249472,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.024192036288,
+        "window_hz": 50.0000750001125,
+        "configured_hz": 16000,
+        "age_max_ms": 18,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.00008250012375,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_3",
+    "frames": 101,
+    "hz": 50.06089281849135,
+    "p99_ms": 21.790084007079713,
+    "max_ms": 22.350625004037283,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249540,
+    "heap_last": 249540,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16127.98387201613,
+        "window_hz": 49.999950000050006,
+        "configured_hz": 16000,
+        "age_max_ms": 18,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 54.99994500005501,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_4",
+    "frames": 101,
+    "hz": 49.99955207896347,
+    "p99_ms": 20.935666994773783,
+    "max_ms": 23.07650000147987,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249492,
+    "heap_last": 249492,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.0,
+        "window_hz": 50.5,
+        "configured_hz": 16000,
+        "age_max_ms": 19,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.0,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_5",
+    "frames": 100,
+    "hz": 49.98057785043056,
+    "p99_ms": 21.408874992630444,
+    "max_ms": 22.143707989016548,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249548,
+    "heap_last": 249548,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.317367652577,
+        "window_hz": 50.505127027970246,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05058846048757,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_6",
+    "frames": 101,
+    "hz": 50.08784468826317,
+    "p99_ms": 21.563457994489,
+    "max_ms": 21.645708999130875,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249572,
+    "heap_last": 249572,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.06451225805,
+        "window_hz": 50.00020000080001,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.000220000880006,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_7",
+    "frames": 100,
+    "hz": 49.98498766508533,
+    "p99_ms": 21.12975000636652,
+    "max_ms": 22.024791993317194,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249552,
+    "heap_last": 249552,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.276637094306,
+        "window_hz": 50.504999489899504,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05044944399046,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_8",
+    "frames": 101,
+    "hz": 49.965009903141244,
+    "p99_ms": 21.852582998690195,
+    "max_ms": 22.5907910062233,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249552,
+    "heap_last": 249552,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.016128016128,
+        "window_hz": 50.00005000005,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.000055000055,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_9",
+    "frames": 100,
+    "hz": 49.90046369651604,
+    "p99_ms": 21.773667001980357,
+    "max_ms": 22.751416996470653,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249552,
+    "heap_last": 249552,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.301075404583,
+        "window_hz": 50.000025252538,
+        "configured_hz": 16000,
+        "age_max_ms": 16,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05053285380447,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_10",
+    "frames": 101,
+    "hz": 49.998837526906804,
+    "p99_ms": 21.55166601005476,
+    "max_ms": 21.586540999123827,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249576,
+    "heap_last": 249576,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.088704487875,
+        "window_hz": 50.000275001512506,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.00030250166376,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_11",
+    "frames": 100,
+    "hz": 50.04199863223224,
+    "p99_ms": 21.320457992260344,
+    "max_ms": 21.537541993893683,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249544,
+    "heap_last": 249544,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.317367652577,
+        "window_hz": 50.00007575769054,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05058846048757,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_12",
+    "frames": 101,
+    "hz": 50.04342726059209,
+    "p99_ms": 21.03424999222625,
+    "max_ms": 21.493666994501837,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249560,
+    "heap_last": 249560,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.016128016128,
+        "window_hz": 50.00005000005,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.000055000055,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_13",
+    "frames": 100,
+    "hz": 49.986783797443216,
+    "p99_ms": 21.555499988608062,
+    "max_ms": 21.888917006435804,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249572,
+    "heap_last": 249572,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.317367652577,
+        "window_hz": 50.505127027970246,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05058846048757,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_14",
+    "frames": 101,
+    "hz": 50.024753923931456,
+    "p99_ms": 21.944833002635278,
+    "max_ms": 22.998500004177913,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249580,
+    "heap_last": 249580,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.080640403203,
+        "window_hz": 50.00025000125001,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.00027500137501,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_15",
+    "frames": 101,
+    "hz": 49.987576012750715,
+    "p99_ms": 21.376541000790894,
+    "max_ms": 21.90958299615886,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249572,
+    "heap_last": 249572,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.040320100801,
+        "window_hz": 50.0001250003125,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.000137500343754,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_16",
+    "frames": 100,
+    "hz": 49.98907647804474,
+    "p99_ms": 23.59670899750199,
+    "max_ms": 27.13416700134985,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249588,
+    "heap_last": 249588,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.29292929293,
+        "window_hz": 50.0,
+        "configured_hz": 16000,
+        "age_max_ms": 16,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05050505050505,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_17",
+    "frames": 100,
+    "hz": 49.98360280360194,
+    "p99_ms": 22.04925000842195,
+    "max_ms": 22.582125006010756,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249524,
+    "heap_last": 249524,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.235906741744,
+        "window_hz": 49.99982323294817,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05031042819545,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_18",
+    "frames": 100,
+    "hz": 49.98354602267974,
+    "p99_ms": 21.63670799927786,
+    "max_ms": 21.800999995321035,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249552,
+    "heap_last": 249552,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.34180608628,
+        "window_hz": 50.00015151561065,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05067187072284,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "lifecycle_19",
+    "frames": 100,
+    "hz": 49.98548295335153,
+    "p99_ms": 21.807208002428524,
+    "max_ms": 24.009625005419366,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249592,
+    "heap_last": 249592,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16129.38253697369,
+        "window_hz": 50.000277779320996,
+        "configured_hz": 16000,
+        "age_max_ms": 17,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.05081088834332,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  },
+  {
+    "phase": "restored",
+    "frames": 501,
+    "hz": 50.0100578527903,
+    "p99_ms": 21.87637500173878,
+    "max_ms": 23.59662498929538,
+    "gaps": 0,
+    "invalid_json": 0,
+    "events": [],
+    "heap_first": 249556,
+    "heap_last": 249556,
+    "sensors": {
+      "switch1": {
+        "errors": 0
+      },
+      "button1": {
+        "errors": 0
+      },
+      "sound1": {
+        "errors": 0,
+        "sample_hz": 16128.801612880161,
+        "window_hz": 50.4000050400005,
+        "configured_hz": 16000,
+        "age_max_ms": 19,
+        "overflows": 0
+      },
+      "slider1": {
+        "errors": 0
+      },
+      "light1": {
+        "errors": 0
+      },
+      "joystick1": {
+        "errors": 0
+      },
+      "encoder1": {
+        "errors": 0
+      },
+      "distance1": {
+        "errors": 0,
+        "measurement_hz": 55.00000550000055,
+        "age_max_ms": 17
+      },
+      "touch1": {
+        "errors": 0
+      }
+    }
+  }
+]

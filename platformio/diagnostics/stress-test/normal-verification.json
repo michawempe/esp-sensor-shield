@@ -1,0 +1,409 @@
+[
+  {
+    "phase": "normal_after_upload",
+    "frames": 52,
+    "hz": 5.088160401788762,
+    "invalid": [],
+    "events": [],
+    "last_frame": {
+      "data": {
+        "switch1": {
+          "type": "switch",
+          "port": "A1",
+          "raw": 0,
+          "value": 0
+        },
+        "button1": {
+          "type": "button",
+          "port": "A2",
+          "raw": 1,
+          "value": 1
+        },
+        "sound1": {
+          "type": "sound",
+          "port": "B2",
+          "raw": 18,
+          "value": 0.0,
+          "inMin": 100.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "slider1": {
+          "type": "slider",
+          "port": "B3",
+          "raw": 2859,
+          "value": 0.698,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "light1": {
+          "type": "light",
+          "port": "B4",
+          "raw": 0,
+          "value": 0.0,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "joystick1": {
+          "type": "joystick",
+          "port": "C1",
+          "raw": {
+            "x": 2015,
+            "y": 1961
+          },
+          "value": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "midCutoff": 100,
+          "edgeCutoff": 0,
+          "outMin": -1.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "encoder1": {
+          "type": "encoder",
+          "port": "C2",
+          "raw": 0,
+          "value": 0.0,
+          "fullRotation": 360.0,
+          "modulo": false
+        },
+        "distance1": {
+          "type": "distance",
+          "port": "C3",
+          "raw": 202,
+          "value": 0.302,
+          "inMin": 30.0,
+          "inMax": 600.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "touch1": {
+          "type": "touch",
+          "port": "D1",
+          "raw": 44789,
+          "value": 0,
+          "threshold": 50000
+        }
+      }
+    }
+  },
+  {
+    "phase": "normal_partial_timeout",
+    "frames": 17,
+    "hz": 4.072878215366127,
+    "invalid": [],
+    "events": [
+      {
+        "error": "serial_line_timeout",
+        "persisted": false
+      }
+    ],
+    "last_frame": {
+      "data": {
+        "switch1": {
+          "type": "switch",
+          "port": "A1",
+          "raw": 0,
+          "value": 0
+        },
+        "button1": {
+          "type": "button",
+          "port": "A2",
+          "raw": 1,
+          "value": 1
+        },
+        "sound1": {
+          "type": "sound",
+          "port": "B2",
+          "raw": 29,
+          "value": 0.0,
+          "inMin": 100.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "slider1": {
+          "type": "slider",
+          "port": "B3",
+          "raw": 1572,
+          "value": 0.384,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "light1": {
+          "type": "light",
+          "port": "B4",
+          "raw": 0,
+          "value": 0.0,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "joystick1": {
+          "type": "joystick",
+          "port": "C1",
+          "raw": {
+            "x": 2015,
+            "y": 1957
+          },
+          "value": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "midCutoff": 100,
+          "edgeCutoff": 0,
+          "outMin": -1.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "encoder1": {
+          "type": "encoder",
+          "port": "C2",
+          "raw": 0,
+          "value": 0.0,
+          "fullRotation": 360.0,
+          "modulo": false
+        },
+        "distance1": {
+          "type": "distance",
+          "port": "C3",
+          "raw": 201,
+          "value": 0.3,
+          "inMin": 30.0,
+          "inMax": 600.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "touch1": {
+          "type": "touch",
+          "port": "D1",
+          "raw": 44817,
+          "value": 0,
+          "threshold": 50000
+        }
+      }
+    }
+  },
+  {
+    "phase": "normal_resync",
+    "frames": 16,
+    "hz": 5.090469234391455,
+    "invalid": [],
+    "events": [],
+    "last_frame": {
+      "data": {
+        "switch1": {
+          "type": "switch",
+          "port": "A1",
+          "raw": 0,
+          "value": 0
+        },
+        "button1": {
+          "type": "button",
+          "port": "A2",
+          "raw": 1,
+          "value": 1
+        },
+        "sound1": {
+          "type": "sound",
+          "port": "B2",
+          "raw": 41,
+          "value": 0.0,
+          "inMin": 100.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "slider1": {
+          "type": "slider",
+          "port": "B3",
+          "raw": 831,
+          "value": 0.203,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "light1": {
+          "type": "light",
+          "port": "B4",
+          "raw": 0,
+          "value": 0.0,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "joystick1": {
+          "type": "joystick",
+          "port": "C1",
+          "raw": {
+            "x": 2013,
+            "y": 1957
+          },
+          "value": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "midCutoff": 100,
+          "edgeCutoff": 0,
+          "outMin": -1.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "encoder1": {
+          "type": "encoder",
+          "port": "C2",
+          "raw": 0,
+          "value": 0.0,
+          "fullRotation": 360.0,
+          "modulo": false
+        },
+        "distance1": {
+          "type": "distance",
+          "port": "C3",
+          "raw": 202,
+          "value": 0.302,
+          "inMin": 30.0,
+          "inMax": 600.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "touch1": {
+          "type": "touch",
+          "port": "D1",
+          "raw": 44805,
+          "value": 0,
+          "threshold": 50000
+        }
+      }
+    }
+  },
+  {
+    "phase": "normal_invalid_config",
+    "frames": 16,
+    "hz": 5.09147794786081,
+    "invalid": [],
+    "events": [
+      {
+        "error": "bad_json",
+        "msg": "unknown_port: unknown_port",
+        "persisted": false
+      }
+    ],
+    "last_frame": {
+      "data": {
+        "switch1": {
+          "type": "switch",
+          "port": "A1",
+          "raw": 0,
+          "value": 0
+        },
+        "button1": {
+          "type": "button",
+          "port": "A2",
+          "raw": 1,
+          "value": 1
+        },
+        "sound1": {
+          "type": "sound",
+          "port": "B2",
+          "raw": 24,
+          "value": 0.0,
+          "inMin": 100.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "slider1": {
+          "type": "slider",
+          "port": "B3",
+          "raw": 919,
+          "value": 0.224,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "light1": {
+          "type": "light",
+          "port": "B4",
+          "raw": 0,
+          "value": 0.0,
+          "inMin": 0.0,
+          "inMax": 4095.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "joystick1": {
+          "type": "joystick",
+          "port": "C1",
+          "raw": {
+            "x": 2019,
+            "y": 1957
+          },
+          "value": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "midCutoff": 100,
+          "edgeCutoff": 0,
+          "outMin": -1.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "encoder1": {
+          "type": "encoder",
+          "port": "C2",
+          "raw": 0,
+          "value": 0.0,
+          "fullRotation": 360.0,
+          "modulo": false
+        },
+        "distance1": {
+          "type": "distance",
+          "port": "C3",
+          "raw": 202,
+          "value": 0.302,
+          "inMin": 30.0,
+          "inMax": 600.0,
+          "outMin": 0.0,
+          "outMax": 1.0,
+          "smoothingMs": 0
+        },
+        "touch1": {
+          "type": "touch",
+          "port": "D1",
+          "raw": 44814,
+          "value": 0,
+          "threshold": 50000
+        }
+      }
+    }
+  }
+]

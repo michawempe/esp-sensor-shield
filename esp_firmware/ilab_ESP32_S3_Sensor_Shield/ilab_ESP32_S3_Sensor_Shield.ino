@@ -10,13 +10,18 @@ SensorManager sensorManager;
 ConfigManager configManager;
 DataPublisher publisher;
 
-static const uint32_t LOOP_DELAY_MS = 40;
+#ifndef ILAB_PUBLISH_INTERVAL_MS
+#define ILAB_PUBLISH_INTERVAL_MS 20
+#endif
+static_assert(ILAB_PUBLISH_INTERVAL_MS >= 1, "Publish interval must be positive");
+static uint32_t publishIntervalMs = ILAB_PUBLISH_INTERVAL_MS;
 
 static const char* PREF_NS = "sensor_cfg";
 static const char* PREF_KEY_JSON = "json";
 static const size_t SERIAL_LINE_MAX = 8192;
 static const size_t SERIAL_RX_BUFFER_SIZE = 16384;
 static const uint32_t SERIAL_RX_QUIET_MS = 40;
+static const uint32_t SERIAL_RX_TIMEOUT_MS = 1000;
 static uint32_t lastPublishMs = 0;
 static bool serialRxLineInProgress = false;
 static uint32_t lastSerialRxByteMs = 0;
@@ -101,6 +106,16 @@ static bool pollSerialLine(String& outLine) {
     rxBufferReserved = true;
   }
 
+  // A lost newline must not suspend sensor output indefinitely. Discard the
+  // abandoned line through its next newline so a suffix cannot become a config.
+  if (serialRxLineInProgress && Serial.available() == 0 &&
+      (uint32_t)(millis() - lastSerialRxByteMs) >= SERIAL_RX_TIMEOUT_MS) {
+    rxBuffer = "";
+    droppingLongLine = true;
+    serialRxLineInProgress = false;
+    Serial.println("{\"error\":\"serial_line_timeout\",\"persisted\":false}");
+  }
+
   while (Serial.available() > 0) {
     const char c = (char)Serial.read();
     lastSerialRxByteMs = millis();
@@ -136,6 +151,37 @@ static bool pollSerialLine(String& outLine) {
 
   return false;
 }
+
+#if ILAB_STRESS_TEST
+// Volatile diagnostics: never persist test settings to NVS.
+static void handleStressCommand(const String& line) {
+  JsonDocument doc;
+  if (deserializeJson(doc, line.substring(1))) {
+    Serial.println("{\"stress\":\"bad_command\"}");
+    return;
+  }
+  if (doc["intervalMs"].is<uint32_t>()) {
+    publishIntervalMs = constrain(doc["intervalMs"].as<uint32_t>(), 1u, 1000u);
+  }
+  if (doc["distanceBudgetUs"].is<uint32_t>()) {
+    VL53L0XSensor::stressBudgetUs = constrain(doc["distanceBudgetUs"].as<uint32_t>(), 20000u, 200000u);
+  }
+  String err;
+  if (doc["config"].is<JsonObject>()) {
+    String cfg;
+    serializeJson(doc["config"], cfg);
+    if (!configManager.apply(cfg, err)) {
+      Serial.println("{\"stress\":\"config_failed\"}");
+      return;
+    }
+  }
+  Serial.print("{\"stress\":\"ok\",\"intervalMs\":");
+  Serial.print(publishIntervalMs);
+  Serial.print(",\"config\":");
+  Serial.print(configManager.currentConfig());
+  Serial.println("}");
+}
+#endif
 
 void setup() {
   Serial.setRxBufferSize(SERIAL_RX_BUFFER_SIZE);
@@ -187,6 +233,11 @@ void loop() {
   String line;
   while (pollSerialLine(line)) {
     if (line.length() > 0) {
+#if ILAB_STRESS_TEST
+      if (line.startsWith("!")) {
+        handleStressCommand(line);
+      } else
+#endif
       if (line.startsWith("{")) {
         handleConfigJson(line);
       } else {
@@ -195,14 +246,24 @@ void loop() {
     }
   }
 
+  sensorManager.serviceAll();
+
   const uint32_t now = millis();
   const bool hasIncomingBytes = Serial.available() > 0;
   const bool serialQuiet = (uint32_t)(now - lastSerialRxByteMs) >= SERIAL_RX_QUIET_MS;
   if (!hasIncomingBytes && !serialRxLineInProgress && serialQuiet &&
-      (uint32_t)(now - lastPublishMs) >= LOOP_DELAY_MS) {
+      (uint32_t)(now - lastPublishMs) >= publishIntervalMs) {
+#if ILAB_STRESS_TEST
+    const uint32_t readStart = micros();
+#endif
     sensorManager.readAll();
+#if ILAB_STRESS_TEST
+    publisher.stressReadUs = micros() - readStart;
+#endif
     publisher.publish();
-    lastPublishMs = now;
+    // Keep the 20-ms grid despite small loop jitter; skip missed slots after
+    // configuration/USB pauses instead of bursting old frames.
+    lastPublishMs += ((uint32_t)(now - lastPublishMs) / publishIntervalMs) * publishIntervalMs;
   }
 
   delay(1);

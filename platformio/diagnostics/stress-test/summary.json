@@ -1,0 +1,1002 @@
+[
+  {
+    "phase": "original_40ms",
+    "seconds": 8.059766332997242,
+    "frames": 41,
+    "hz": 5.090667978364671,
+    "host_p99_ms": 198.77220899797976,
+    "host_max_ms": 198.89629099634476,
+    "device_p99_ms": 196.573,
+    "read_p50_ms": 192.782,
+    "bytes_per_frame": 1112.878048780488,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 285464,
+    "heap_last": 286204,
+    "heap_min": 285464,
+    "events": []
+  },
+  {
+    "phase": "original_20ms",
+    "seconds": 8.058244374988135,
+    "frames": 41,
+    "hz": 5.088934349643923,
+    "host_p99_ms": 199.5077910105465,
+    "host_max_ms": 199.56500000262167,
+    "device_p99_ms": 196.451,
+    "read_p50_ms": 192.791,
+    "bytes_per_frame": 1112.8048780487804,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 285460,
+    "heap_last": 286264,
+    "heap_min": 285460,
+    "events": []
+  },
+  {
+    "phase": "original_10ms",
+    "seconds": 8.053883875007159,
+    "frames": 41,
+    "hz": 5.093298863305272,
+    "host_p99_ms": 197.95895800052676,
+    "host_max_ms": 198.63595798960887,
+    "device_p99_ms": 196.445,
+    "read_p50_ms": 192.777,
+    "bytes_per_frame": 1112.780487804878,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 285476,
+    "heap_last": 286280,
+    "heap_min": 285476,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_40ms",
+    "seconds": 8.04673545800324,
+    "frames": 201,
+    "hz": 24.972540088803836,
+    "host_p99_ms": 42.58950000803452,
+    "host_max_ms": 47.79029199562501,
+    "device_p99_ms": 40.004,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 825.0099502487562,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288340,
+    "heap_last": 288340,
+    "heap_min": 288340,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_20ms",
+    "seconds": 8.020079875001102,
+    "frames": 400,
+    "hz": 49.98603773456576,
+    "host_p99_ms": 22.13100000517443,
+    "host_max_ms": 30.26233300624881,
+    "device_p99_ms": 20.003,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 825.005,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288352,
+    "heap_last": 288352,
+    "heap_min": 288352,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_10ms",
+    "seconds": 8.011201458997675,
+    "frames": 798,
+    "hz": 100.01681587621212,
+    "host_p99_ms": 10.99216699367389,
+    "host_max_ms": 12.207833002321422,
+    "device_p99_ms": 10.003,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 825.4498746867168,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288340,
+    "heap_last": 288340,
+    "heap_min": 288340,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_5ms",
+    "seconds": 8.00399508299597,
+    "frames": 1594,
+    "hz": 200.02683034095253,
+    "host_p99_ms": 6.858499997179024,
+    "host_max_ms": 8.51195800350979,
+    "device_p99_ms": 5.005,
+    "read_p50_ms": 0.284,
+    "bytes_per_frame": 826.0194479297365,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288348,
+    "heap_last": 288348,
+    "heap_min": 288348,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_2ms",
+    "seconds": 8.003930833991035,
+    "frames": 2656,
+    "hz": 333.37620869431066,
+    "host_p99_ms": 3.2179999980144203,
+    "host_max_ms": 4.640583007130772,
+    "device_p99_ms": 3.004,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 826.6886295180723,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288352,
+    "heap_last": 288352,
+    "heap_min": 288352,
+    "events": []
+  },
+  {
+    "phase": "fast_attached_1ms",
+    "seconds": 8.003276290997746,
+    "frames": 2656,
+    "hz": 333.37016866517627,
+    "host_p99_ms": 3.6422089906409383,
+    "host_max_ms": 5.532665993086994,
+    "device_p99_ms": 3.004,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 826.7082078313254,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288352,
+    "heap_last": 288352,
+    "heap_min": 288352,
+    "events": []
+  },
+  {
+    "phase": "11_inputs_20ms",
+    "seconds": 8.003211999995983,
+    "frames": 399,
+    "hz": 49.98367863977422,
+    "host_p99_ms": 22.497833997476846,
+    "host_max_ms": 24.16158300184179,
+    "device_p99_ms": 20.002,
+    "read_p50_ms": 0.286,
+    "bytes_per_frame": 1132.0025062656641,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288328,
+    "heap_last": 288328,
+    "heap_min": 288328,
+    "events": []
+  },
+  {
+    "phase": "11_inputs_10ms",
+    "seconds": 8.001187333007692,
+    "frames": 797,
+    "hz": 100.03595722108643,
+    "host_p99_ms": 12.822875010897405,
+    "host_max_ms": 13.023457999224775,
+    "device_p99_ms": 10.005,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 1131.5244667503136,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288328,
+    "heap_last": 288328,
+    "heap_min": 288328,
+    "events": []
+  },
+  {
+    "phase": "11_inputs_5ms",
+    "seconds": 8.001152124998043,
+    "frames": 1593,
+    "hz": 200.0309396595957,
+    "host_p99_ms": 7.36799999140203,
+    "host_max_ms": 7.629959000041708,
+    "device_p99_ms": 5.004,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 1132.6654111738858,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288328,
+    "heap_last": 288328,
+    "heap_min": 288328,
+    "events": []
+  },
+  {
+    "phase": "11_inputs_2ms",
+    "seconds": 8.004833375001908,
+    "frames": 1992,
+    "hz": 250.01005474245582,
+    "host_p99_ms": 4.499041999224573,
+    "host_max_ms": 6.783916003769264,
+    "device_p99_ms": 4.006,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 1132.7996987951808,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288320,
+    "heap_last": 288320,
+    "heap_min": 288320,
+    "events": []
+  },
+  {
+    "phase": "11_inputs_1ms",
+    "seconds": 8.004807332996279,
+    "frames": 1992,
+    "hz": 250.0048552864973,
+    "host_p99_ms": 4.606749993399717,
+    "host_max_ms": 7.454625010723248,
+    "device_p99_ms": 4.007,
+    "read_p50_ms": 0.284,
+    "bytes_per_frame": 1132.6119477911648,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288328,
+    "heap_last": 288328,
+    "heap_min": 288328,
+    "events": []
+  },
+  {
+    "phase": "distance_only_budget_100000us",
+    "seconds": 8.07656520899036,
+    "frames": 83,
+    "hz": 10.279038766344165,
+    "host_p99_ms": 98.73174999665935,
+    "host_max_ms": 98.83316699415445,
+    "device_p99_ms": 97.422,
+    "read_p50_ms": 95.657,
+    "bytes_per_frame": 223.95180722891567,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 287000,
+    "heap_last": 287196,
+    "heap_min": 287000,
+    "events": []
+  },
+  {
+    "phase": "distance_only_budget_50000us",
+    "seconds": 8.00719425000716,
+    "frames": 167,
+    "hz": 20.86145132583179,
+    "host_p99_ms": 49.245000001974404,
+    "host_max_ms": 53.09112500981428,
+    "device_p99_ms": 48.068,
+    "read_p50_ms": 46.438,
+    "bytes_per_frame": 223.9760479041916,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 287052,
+    "heap_last": 287232,
+    "heap_min": 287052,
+    "events": []
+  },
+  {
+    "phase": "distance_only_budget_33000us",
+    "seconds": 8.031001707990072,
+    "frames": 259,
+    "hz": 32.259439918603896,
+    "host_p99_ms": 32.11362499860115,
+    "host_max_ms": 32.310415990650654,
+    "device_p99_ms": 31.091,
+    "read_p50_ms": 29.353,
+    "bytes_per_frame": 223.98455598455598,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 287052,
+    "heap_last": 287232,
+    "heap_min": 287052,
+    "events": []
+  },
+  {
+    "phase": "distance_only_budget_20000us",
+    "seconds": 8.00236975000007,
+    "frames": 440,
+    "hz": 54.999894737183055,
+    "host_p99_ms": 19.463333999738097,
+    "host_max_ms": 22.59237499674782,
+    "device_p99_ms": 18.284,
+    "read_p50_ms": 16.541,
+    "bytes_per_frame": 223.9909090909091,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 287036,
+    "heap_last": 287216,
+    "heap_min": 287036,
+    "events": []
+  },
+  {
+    "phase": "sound_only_20ms",
+    "seconds": 8.017229292003321,
+    "frames": 318,
+    "hz": 39.853601503698776,
+    "host_p99_ms": 26.594082999508828,
+    "host_max_ms": 27.25929199368693,
+    "device_p99_ms": 26.035,
+    "read_p50_ms": 24.285,
+    "bytes_per_frame": 219,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 289168,
+    "heap_last": 289168,
+    "heap_min": 289168,
+    "events": []
+  },
+  {
+    "phase": "soak_50hz",
+    "seconds": 120.03090700000757,
+    "frames": 6000,
+    "hz": 49.9993945768461,
+    "host_p99_ms": 22.123125003417954,
+    "host_max_ms": 23.845000003348105,
+    "device_p99_ms": 20.003,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 827.8678333333334,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288392,
+    "heap_last": 288392,
+    "heap_min": 288392,
+    "events": []
+  },
+  {
+    "phase": "invalid_json",
+    "seconds": 3.007679250004003,
+    "frames": 151,
+    "hz": 49.91162245498974,
+    "host_p99_ms": 22.323332988889888,
+    "host_max_ms": 41.97183299402241,
+    "device_p99_ms": 20.005,
+    "read_p50_ms": 0.284,
+    "bytes_per_frame": 827.9867549668874,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288392,
+    "heap_last": 288392,
+    "heap_min": 288392,
+    "events": [
+      {
+        "error": "bad_json",
+        "msg": "bad_json: InvalidInput",
+        "persisted": false
+      }
+    ]
+  },
+  {
+    "phase": "oversize_line",
+    "seconds": 3.0075127909949515,
+    "frames": 147,
+    "hz": 50.019757375822266,
+    "host_p99_ms": 22.045292003895156,
+    "host_max_ms": 23.117165997973643,
+    "device_p99_ms": 20.003,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 828,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288392,
+    "heap_last": 288392,
+    "heap_min": 288392,
+    "events": [
+      {
+        "error": "line_too_long",
+        "persisted": false
+      }
+    ]
+  },
+  {
+    "phase": "partial_line_stall",
+    "seconds": 3.060881209006766,
+    "frames": 0,
+    "hz": 0,
+    "host_p99_ms": null,
+    "host_max_ms": null,
+    "device_p99_ms": null,
+    "read_p50_ms": null,
+    "bytes_per_frame": 0,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": null,
+    "heap_last": null,
+    "heap_min": null,
+    "events": []
+  },
+  {
+    "phase": "partial_line_recovery",
+    "seconds": 3.0050379159947624,
+    "frames": 149,
+    "hz": 49.99751912640679,
+    "host_p99_ms": 21.611582997138612,
+    "host_max_ms": 22.100957998191006,
+    "device_p99_ms": 20.003,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 828,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288392,
+    "heap_last": 288392,
+    "heap_min": 288392,
+    "events": [
+      {
+        "error": "bad_json",
+        "msg": "bad_json: InvalidInput",
+        "persisted": false
+      }
+    ]
+  },
+  {
+    "phase": "command_burst",
+    "seconds": 3.020399291999638,
+    "frames": 149,
+    "hz": 49.94771941843633,
+    "host_p99_ms": 21.722249992308207,
+    "host_max_ms": 22.214750002603978,
+    "device_p99_ms": 20.004,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 828.0134228187919,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288392,
+    "heap_last": 288392,
+    "heap_min": 288392,
+    "events": [
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      },
+      {
+        "error": "unknown_input",
+        "hint": "send JSON only"
+      }
+    ]
+  },
+  {
+    "phase": "reader_pause_5s",
+    "seconds": 9.005588375002844,
+    "frames": 1925,
+    "hz": 481.34004158956674,
+    "host_p99_ms": 6.039499989128672,
+    "host_max_ms": 50.561583004309796,
+    "device_p99_ms": 4.014,
+    "read_p50_ms": 0.283,
+    "bytes_per_frame": 1132.6955844155843,
+    "sequence_gap_events": 1,
+    "invalid_json": 1,
+    "invalid_examples": [
+      "{\"data\":{\"button1\":{\"type\":\"button\",\"port\":\"A1\",\"raw\":0,\"value\":0},\"button2\":{\"type\":\"button\",\"port\""
+    ],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288336,
+    "heap_last": 288336,
+    "heap_min": 288336,
+    "events": []
+  },
+  {
+    "phase": "after_reader_pause",
+    "seconds": 4.002108041007887,
+    "frames": 199,
+    "hz": 49.99831602889699,
+    "host_p99_ms": 23.70945899747312,
+    "host_max_ms": 23.791416999301873,
+    "device_p99_ms": 20.005,
+    "read_p50_ms": 0.287,
+    "bytes_per_frame": 1133,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288336,
+    "heap_last": 288336,
+    "heap_min": 288336,
+    "events": []
+  },
+  {
+    "phase": "reopen",
+    "seconds": 4.004901708001853,
+    "frames": 199,
+    "hz": 49.998806316253905,
+    "host_p99_ms": 23.304958012886345,
+    "host_max_ms": 23.590833006892353,
+    "device_p99_ms": 20.005,
+    "read_p50_ms": 0.285,
+    "bytes_per_frame": 1133,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 288336,
+    "heap_last": 288336,
+    "heap_min": 288336,
+    "events": []
+  },
+  {
+    "phase": "restored",
+    "seconds": 5.115375499997754,
+    "frames": 26,
+    "hz": 5.087078016234121,
+    "host_p99_ms": 198.93683299596887,
+    "host_max_ms": 200.05900000978727,
+    "device_p99_ms": 196.647,
+    "read_p50_ms": 192.94,
+    "bytes_per_frame": 1115.6923076923076,
+    "sequence_gap_events": 0,
+    "invalid_json": 0,
+    "invalid_examples": [],
+    "sensor_errors": 0,
+    "null_values": 0,
+    "heap_first": 285424,
+    "heap_last": 286260,
+    "heap_min": 285424,
+    "events": []
+  }
+]

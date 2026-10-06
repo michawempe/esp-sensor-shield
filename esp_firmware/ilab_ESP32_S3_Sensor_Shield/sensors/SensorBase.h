@@ -15,6 +15,7 @@ public:
   virtual ~SensorBase() {}
   virtual void begin() = 0;
   virtual void read() = 0;
+  virtual void service() {}
   virtual void appendJson(String& json) = 0;
 
   void setSmoothingMs(uint32_t ms) { smoothingMs = ms; }

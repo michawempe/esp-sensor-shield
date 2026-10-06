@@ -1,0 +1,36 @@
+{
+  "runtime": "v22.11.0",
+  "scope": "Node parser replay; no rendering or real WebSerial",
+  "results": [
+    {
+      "chunkSize": 1,
+      "frames": 1002,
+      "ms": 536.348,
+      "framesPerSecond": 1868.190055710099
+    },
+    {
+      "chunkSize": 7,
+      "frames": 1002,
+      "ms": 91.45166700000004,
+      "framesPerSecond": 10956.607275403734
+    },
+    {
+      "chunkSize": 64,
+      "frames": 1002,
+      "ms": 15.509208000000058,
+      "framesPerSecond": 64606.78069441046
+    },
+    {
+      "chunkSize": 4096,
+      "frames": 1002,
+      "ms": 6.593625000000088,
+      "framesPerSecond": 151964.9661604939
+    },
+    {
+      "chunkSize": 1133801,
+      "frames": 1002,
+      "ms": 6.410708999999997,
+      "framesPerSecond": 156300.96452670064
+    }
+  ]
+}

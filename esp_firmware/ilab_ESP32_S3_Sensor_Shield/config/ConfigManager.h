@@ -110,6 +110,8 @@ public:
       sensorManager.add(s);
     }
 
+    sensorManager.startSampling();
+
     currentConfigJson = jsonStr;
     currentConfigJson.trim();
     return true;

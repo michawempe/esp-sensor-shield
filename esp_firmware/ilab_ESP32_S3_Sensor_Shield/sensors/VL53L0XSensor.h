@@ -87,6 +87,9 @@ class VL53L0XSensor : public SensorBase {
   float value = NAN;
   bool hasReading = false;
   bool initialized = false;
+  uint32_t lastPollMs = 0;
+  uint32_t lastMeasurementMs = 0;
+  uint32_t measurementSequence = 0;
 
   float inMin;
   float inMax;
@@ -136,7 +139,18 @@ class VL53L0XSensor : public SensorBase {
     return b[MEDIAN_SIZE / 2];
   }
 
+  static uint32_t measurementBudgetUs() {
+#if ILAB_STRESS_TEST
+    return stressBudgetUs;
+#else
+    return 20000;
+#endif
+  }
+
 public:
+#if ILAB_STRESS_TEST
+  inline static uint32_t stressBudgetUs = 20000;
+#endif
   // pinScl/pinSda follow the board's 4-pin mapping in PortMap.h.
   VL53L0XSensor(const char* pid, const char* sensorName,
                 uint8_t cfgPinScl, uint8_t cfgPinSda,
@@ -183,6 +197,7 @@ public:
       busIndex = -1;
       return;
     }
+    wire->setTimeOut(5);
     lox.setBus(wire.get());
     lox.setTimeout(500);
 #if ILAB_VL53_DIAGNOSTICS
@@ -206,58 +221,84 @@ public:
 #endif
     readError = initialized ? nullptr : "vl53l0x_init_failed";
     if (initialized) {
+      const bool accepted = lox.setMeasurementTimingBudget(measurementBudgetUs());
 #if ILAB_VL53_DIAGNOSTICS
-      budgetOk = lox.setMeasurementTimingBudget(200000);
-#else
-      lox.setMeasurementTimingBudget(200000);
+      budgetOk = accepted;
 #endif
-      lox.startContinuous(0);
+      if (accepted) lox.startContinuous(0);
+      else { initialized = false; readError = "timing_budget_failed"; }
     }
+    lastPollMs = 0;
+    lastMeasurementMs = millis();
+    measurementSequence = 0;
     for (int i = 0; i < MEDIAN_SIZE; i++) buf[i] = 0;
     idx = 0;
     traceLifecycle(initialized ? "started" : "init_failed");
   }
 
-  void read() override {
-    hasReading = false;
-    rawMm = 0;
-    value = NAN;
-    if (!initialized) return;
+  void read() override { service(); }
 
+  void service() override {
+    if (!initialized) return;
+    const uint32_t now = millis();
+    if ((uint32_t)(now - lastPollMs) < 2) return;
+    lastPollMs = now;
 #if ILAB_VL53_DIAGNOSTICS
     const uint32_t readStart = millis();
 #endif
-    const uint16_t d = lox.readRangeContinuousMillimeters();
+    // Poll readiness once. The library's readRangeContinuousMillimeters() waits
+    // for completion, so read the result registers directly after readiness.
+    const uint8_t status = lox.readReg(VL53L0X::RESULT_INTERRUPT_STATUS);
+    if (lox.last_status != 0) {
+      invalidate("i2c_read_failed");
+      return;
+    }
+    if (!(status & 0x07)) {
+      const uint32_t staleMs = (measurementBudgetUs() / 1000) * 3 + 40;
+      if ((uint32_t)(now - lastMeasurementMs) >= staleMs) {
+#if ILAB_VL53_DIAGNOSTICS
+        if (hasReading) ++timeouts;
+#endif
+        invalidate("measurement_timeout");
+      }
+      return;
+    }
+    const uint16_t d = lox.readReg16Bit(VL53L0X::RESULT_RANGE_STATUS + 10);
+    if (lox.last_status != 0) { invalidate("i2c_read_failed"); return; }
+    lox.writeReg(VL53L0X::SYSTEM_INTERRUPT_CLEAR, 0x01);
+    if (lox.last_status != 0) { invalidate("i2c_read_failed"); return; }
+    lastMeasurementMs = now;
+    ++measurementSequence;
 #if ILAB_VL53_DIAGNOSTICS
     readMs = millis() - readStart;
     returnedMm = d;
-    readStatus = lox.last_status; // Last transmission only, not all read errors.
+    readStatus = lox.last_status;
 #endif
-    if (lox.timeoutOccurred()) {
-#if ILAB_VL53_DIAGNOSTICS
-      ++timeouts;
-#endif
-      smoothing.reset();
-      readError = "measurement_timeout";
-      return;
-    }
     if (d == 0 || d > 8000) {
 #if ILAB_VL53_DIAGNOSTICS
       ++invalidReads;
 #endif
-      smoothing.reset();
-      readError = "out_of_range";
+      invalidate("out_of_range");
       return;
     }
 #if ILAB_VL53_DIAGNOSTICS
     ++goodReads;
 #endif
+    // Seed the median with the first valid reading, not artificial zeroes.
+    if (!hasReading) for (auto& sample : buf) sample = d;
     readError = nullptr;
     buf[idx] = d;
     idx = (idx + 1) % MEDIAN_SIZE;
     rawMm = median5(buf);
     hasReading = true;
-    value = smoothing.update(mapClamped((float)rawMm, inMin, inMax, outMin, outMax), millis(), smoothingMs);
+    value = smoothing.update(mapClamped((float)rawMm, inMin, inMax, outMin, outMax), now, smoothingMs);
+  }
+
+  void invalidate(const char* error) {
+    hasReading = false;
+    value = NAN;
+    smoothing.reset();
+    readError = error;
   }
 
   void appendJson(String& json) override {
@@ -285,6 +326,12 @@ public:
       appendQuoted(json, readError);
     }
 
+#if ILAB_STRESS_TEST && !ILAB_VL53_DIAGNOSTICS
+    json += ",\"diag\":{\"measurements\":"; json += measurementSequence;
+    json += ",\"ageMs\":"; json += millis() - lastMeasurementMs;
+    json += ",\"budgetUs\":"; json += measurementBudgetUs();
+    json += "}";
+#endif
 #if ILAB_VL53_DIAGNOSTICS
     json += ",\"diag\":{\"bus\":";
     json += busIndex;

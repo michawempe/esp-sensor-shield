@@ -1,11 +1,13 @@
 #pragma once
 #include "SensorBase.h"
+#include "../runtime/AnalogSampler.h"
 #include "MappingUtils.h"
 #include "SmoothingFilter.h"
 
 class HallSensor : public SensorBase {
   SmoothingFilter smoothing;
   uint8_t pin;
+  bool valid = false;
   int rawAdc = 0;
   float value = 0.0f;
   float inMin;
@@ -23,11 +25,13 @@ public:
 
   void begin() override {
     smoothing.reset();
-    analogSetPinAttenuation(pin, ADC_11db);
+    analogSampler.addPin(pin);
   }
 
   void read() override {
-    rawAdc = analogRead(pin);
+    valid = analogSampler.ready(pin);
+    if (!valid) { smoothing.reset(); return; }
+    rawAdc = analogSampler.read(pin);
     value = smoothing.update(mapClamped((float)rawAdc, inMin, inMax, outMin, outMax), millis(), smoothingMs);
   }
 
@@ -37,9 +41,10 @@ public:
     json += "\"type\":\"magnet\",\"port\":";
     appendQuoted(json, portId);
     json += ",\"raw\":";
-    json += rawAdc;
+    if (valid) json += rawAdc; else json += "null";
     json += ",\"value\":";
-    appendFloat(json, value);
+    if (valid) appendFloat(json, value); else json += "null";
+    if (!valid) json += ",\"error\":\"adc_not_ready\"";
     json += ",\"inMin\":";
     appendFloat(json, inMin);
     json += ",\"inMax\":";

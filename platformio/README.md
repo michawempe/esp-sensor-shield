@@ -35,7 +35,7 @@ Der Upload läuft absichtlich mit 115200 Baud direkt über den ROM-Bootloader (`
 
 ## 3. Funktion prüfen
 
-Im Monitor kommen bei leerer Sensorkonfiguration ungefähr alle 40 ms JSON-Zeilen. Blockierende Sensorabfragen können das Intervall verlängern:
+Im Monitor kommen bei leerer Sensorkonfiguration ungefähr alle 20 ms JSON-Zeilen (50 Hz Sollrate). Auch die getestete gemischte Konfiguration mit Sound und Abstand erreicht 50 Hz. Konfigurationswechsel und USB-Rückstau können die Ausgabe unterbrechen:
 
 ```json
 {"data":{}}
@@ -145,3 +145,44 @@ Der Sketch wird als C++ übersetzt. Neue Funktionen müssen vor ihrer Verwendung
 Für nachvollziehbare Ergebnisse denselben Git-Stand und diese Paketversionen verwenden. Updates bewusst ändern, neu bauen und am Board testen. Die feste Konfiguration macht die Build-Eingaben wiederholbar; sie garantiert keine bytegleichen Binärdateien über unterschiedliche Betriebssysteme. Für Workshops das Projekt einmal vorab bauen, solange Internet verfügbar ist.
 
 Technische Referenzen: [PlatformIO-Projektkonfiguration](https://docs.platformio.org/en/latest/projectconf/index.html), [Boardbasis](https://docs.platformio.org/en/latest/boards/espressif32/esp32-s3-devkitc-1.html), [Arduino-Boardparameter 3.3.7](https://github.com/espressif/arduino-esp32/blob/3.3.7/boards.txt), [Arduino-Partitionstabelle](https://github.com/espressif/arduino-esp32/blob/3.3.7/tools/partitions/default.csv).
+
+## Senderate und Belastungstests
+
+Die normale Firmware gibt alle 20 ms ein Paket mit den aktuellen Sensorwerten
+aus. Die Messung läuft unabhängig davon:
+
+- ADC1 erfasst analoge Eingänge per DMA. Mit Sound sind bis zu fünf aktive
+  ADC1-Pins auf je 16 kHz eingestellt; der gemessene Hardwaretakt liegt bei etwa
+  16,13 kHz. Ohne Sound werden je Kanal 1.000 Samples/s erfasst.
+- Sound berechnet Spitze-zu-Spitze-Werte aus 320 Samples (nominal 20 ms). Die
+  bisherige Skalierung und optionale Glättung gelten weiter.
+- Bei mehr als fünf aktiven ADC1-Pins wird die Rate je Kanal reduziert, damit
+  die Summe höchstens auf 80.000 Samples/s eingestellt ist. Auch dann entstehen
+  weiterhin nominal 50 Sound-Fenster/s. Fünf Sound-Kanäle plus ADC1-Joystick
+  wurden mit etwa 11,52 kHz je Kanal und 50-Hz-Paketausgabe getestet.
+- Joysticks an C3/C4 verwenden ADC2 und werden bei der Ausgabe gelesen.
+- Der VL53L0X arbeitet mit 20 ms Messbudget kontinuierlich. Die Firmware prüft
+  alle 2 ms, ob ein neuer Messwert vorliegt, und wartet nicht auf die Messung.
+  Auf dem Testboard wurden etwa 55 neue Abstandswerte/s gemessen.
+- Wenn länger keine Abstandsmessung vorliegt (bei 20 ms Budget nach 100 ms),
+  erscheint `measurement_timeout` mit `null` statt eines unbegrenzt alten Werts.
+  Fehlende ADC-/Sound-Daten werden als `adc_not_ready` bzw. `sound_not_ready`
+  gekennzeichnet. Das kann kurz nach einer Konfigurationsänderung auftreten.
+
+Der schnellere Abstandsbetrieb kann stärker rauschen als das frühere
+200-ms-Messbudget. Medianfilter und optionale Glättung bleiben aktiv. Das
+Messbudget ist keine Garantie für gültige Messungen bei jeder Oberfläche oder
+Entfernung.
+
+Details und Wiederholungsbefehle stehen im
+[aktuellen Messbericht](diagnostics/continuous-test/RESULT.md). Der
+[erste Stresstest](diagnostics/stress-test/RESULT.md) dokumentiert den Stand vor
+der getrennten Erfassung. `-DILAB_PUBLISH_INTERVAL_MS=10` erhöht bei Bedarf die
+Ausgaberate; daraus entstehen keine zusätzlichen Sound-/Abstandsmessungen.
+
+Unvollständige Eingabezeilen blockieren Sensorausgaben nach 1 s ohne neue Bytes
+nicht weiter. Der ESP meldet `serial_line_timeout` und verwirft den Rest bis zum
+nächsten Zeilenumbruch. Nach einem solchen Abbruch zuerst einen Zeilenumbruch
+senden, dann das vollständige Konfigurationskommando erneut. Die letzte gültige
+Konfiguration bleibt aktiv. Normale Konfigurationen werden weiterhin mit einem
+abschließenden Zeilenumbruch gesendet.

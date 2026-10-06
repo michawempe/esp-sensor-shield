@@ -3,6 +3,7 @@
 #include "MappingUtils.h"
 #include "SmoothingFilter.h"
 #include <Arduino.h>
+#include "../runtime/AnalogSampler.h"
 
 class SoundSensor : public SensorBase {
   SmoothingFilter smoothing;
@@ -15,8 +16,8 @@ class SoundSensor : public SensorBase {
   float outMin;
   float outMax;
 
-  static constexpr uint16_t WINDOW_MS = 25;
-  static constexpr uint16_t SAMPLE_DELAY_US = 0;
+  uint32_t lastWindow = 0;
+  bool valid = false;
 
 public:
   SoundSensor(const char* pid, const char* sensorName, uint8_t p,
@@ -28,27 +29,19 @@ public:
 
   void begin() override {
     smoothing.reset();
-    analogReadResolution(12);
-    analogSetPinAttenuation(pin, ADC_11db);
-    pinMode(pin, INPUT);
+    lastWindow = 0;
+    valid = false;
+    analogSampler.addPin(pin, true);
   }
 
   void read() override {
-    uint32_t start = millis();
-    int minV = 4095;
-    int maxV = 0;
-
-    while ((millis() - start) < WINDOW_MS) {
-      // Prioritize incoming serial config lines over long analog sampling windows.
-      if (Serial.available() > 0) break;
-      const int v = analogRead(pin);
-      if (v < minV) minV = v;
-      if (v > maxV) maxV = v;
-      if (SAMPLE_DELAY_US) delayMicroseconds(SAMPLE_DELAY_US);
-    }
-
-    p2p = (maxV >= minV) ? (maxV - minV) : 0;  // Guard: no samples taken if serial interrupted immediately.
-    value = smoothing.update(mapClamped((float)p2p, inMin, inMax, outMin, outMax), millis(), smoothingMs);
+    const auto& c = analogSampler.sound(pin);
+    valid = analogSampler.healthy() && c.windows && (uint32_t)(millis() - c.updatedMs) < 100;
+    if (!valid) { smoothing.reset(); return; }
+    if (c.windows == lastWindow) return;
+    lastWindow = c.windows;
+    p2p = c.peak;
+    value = smoothing.update(mapClamped((float)p2p, inMin, inMax, outMin, outMax), c.updatedMs, smoothingMs);
   }
 
   void appendJson(String& json) override {
@@ -57,9 +50,19 @@ public:
     json += "\"type\":\"sound\",\"port\":";
     appendQuoted(json, portId);
     json += ",\"raw\":";
-    json += p2p;
+    if (valid) json += p2p; else json += "null";
     json += ",\"value\":";
-    appendFloat(json, value);
+    if (valid) appendFloat(json, value); else json += "null";
+    if (!valid) json += ",\"error\":\"sound_not_ready\"";
+#if ILAB_STRESS_TEST
+    const auto& c = analogSampler.sound(pin);
+    json += ",\"diag\":{\"sampleRateHz\":"; json += analogSampler.rate();
+    json += ",\"samples\":"; json += c.samples;
+    json += ",\"windows\":"; json += c.windows;
+    json += ",\"ageMs\":"; json += millis() - c.updatedMs;
+    json += ",\"overflows\":"; json += analogSampler.overflows();
+    json += "}";
+#endif
     json += ",\"inMin\":";
     appendFloat(json, inMin);
     json += ",\"inMax\":";

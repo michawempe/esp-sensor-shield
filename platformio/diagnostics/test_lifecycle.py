@@ -33,7 +33,8 @@ struct SerialMock {
   template<class... T> void printf(const char*, T...) {}
 };
 inline SerialMock Serial;
-inline uint32_t millis() { static uint32_t t = 0; return ++t; }
+inline uint32_t mockMillis = 0;
+inline uint32_t millis() { return ++mockMillis; }
 inline void delay(uint32_t) {}
 inline int xPortGetCoreID() { return 1; }
 '''
@@ -53,6 +54,7 @@ public:
   }
   void end() { if (started) active[id] = started = false; }
   void setClock(uint32_t) {}
+  void setTimeOut(uint16_t) {}
 };
 inline TwoWire Wire(0);
 '''
@@ -62,7 +64,7 @@ LOX = r'''
 class VL53L0X {
   TwoWire* bus = &Wire;
 public:
-  enum { SOFT_RESET_GO2_SOFT_RESET_N = 0xBF, IDENTIFICATION_MODEL_ID = 0xC0 };
+  enum { SOFT_RESET_GO2_SOFT_RESET_N = 0xBF, IDENTIFICATION_MODEL_ID = 0xC0, RESULT_INTERRUPT_STATUS = 0x13, RESULT_RANGE_STATUS = 0x14, SYSTEM_INTERRUPT_CLEAR = 0x0B };
   inline static bool resetWorks = true;
   bool resetting = false;
   void writeReg(uint8_t reg, uint8_t value) {
@@ -70,8 +72,10 @@ public:
   }
   uint8_t readReg(uint8_t reg) {
     if (reg == IDENTIFICATION_MODEL_ID) return resetting && resetWorks ? 0 : 0xEE;
+    if (reg == RESULT_INTERRUPT_STATUS) return timeout ? 0 : 7;
     return 55;
   }
+  uint16_t readReg16Bit(uint8_t) { return measurement; }
   inline static bool initOk = true;
   inline static bool timeout = false;
   inline static uint16_t measurement = 250;
@@ -111,10 +115,15 @@ int main() {
     for (int i=0; i<5; ++i) sensorManager.readAll();
     assert(data().find("\"raw\":null") == std::string::npos);
   }
-  VL53L0X::timeout = true; sensorManager.readAll();
+#if ILAB_NONBLOCKING_TEST
+  VL53L0X::timeout = true; mockMillis += 3; sensorManager.readAll();
+  // No new range yet: retain the last valid sample, never wait in read().
+  assert(data().find("\"raw\":null") == std::string::npos);
+#endif
+  VL53L0X::timeout = true; mockMillis += 700; sensorManager.readAll();
   assert(data().find("measurement_timeout") != std::string::npos);
   assert(data().find("\"raw\":null") != std::string::npos);
-  sensorManager.readAll();
+  VL53L0X::timeout = false; mockMillis += 3; sensorManager.readAll();
   assert(data().find("\"raw\":null") == std::string::npos);
   VL53L0X::measurement = 8190; sensorManager.readAll();
   assert(data().find("out_of_range") != std::string::npos);
@@ -143,11 +152,12 @@ with tempfile.TemporaryDirectory(prefix='vl53-lifecycle-') as tmp:
         shutil.copyfile(FIRMWARE/f, d/f)
     for name, code in [('Arduino.h', ARDUINO), ('Wire.h', WIRE), ('VL53L0X.h', LOX), ('test.cpp', TEST)]:
         (d/name).write_text(code)
+    (d/'runtime/AnalogSampler.h').write_text('struct AnalogSampler { void reset() {} bool start() { return true; } void poll() {} }; inline AnalogSampler analogSampler;')
     current = (FIRMWARE/'sensors/VL53L0XSensor.h').read_text()
     original = subprocess.check_output(['git', '-C', str(ROOT), 'show', HISTORICAL_REV + ':esp_firmware/ilab_ESP32_S3_Sensor_Shield/sensors/VL53L0XSensor.h'], text=True)
     for label, code, diag, expected in [('HEAD regression', original, 0, 42), ('current', current, 0, 0), ('diagnostics', current, 1, 0)]:
         (d/'sensors/VL53L0XSensor.h').write_text(code)
-        subprocess.run(['c++', '-std=c++17', '-Wall', '-Wextra', '-fsanitize=undefined', f'-DILAB_VL53_DIAGNOSTICS={diag}', '-I'+str(d), str(d/'test.cpp'), '-o', str(d/'test')], check=True)
+        subprocess.run(['c++', '-std=c++17', '-Wall', '-Wextra', '-fsanitize=undefined', f'-DILAB_VL53_DIAGNOSTICS={diag}', f'-DILAB_NONBLOCKING_TEST={int(label != "HEAD regression")}', '-I'+str(d), str(d/'test.cpp'), '-o', str(d/'test')], check=True)
         result = subprocess.run([str(d/'test')])
         assert result.returncode == expected, (label, result.returncode, expected)
         print(f'{label}: PASS (exit {expected})')

@@ -1,11 +1,13 @@
 #pragma once
 #include "SensorBase.h"
+#include "../runtime/AnalogSampler.h"
 #include "MappingUtils.h"
 #include "SmoothingFilter.h"
 
 class JoystickSensor : public SensorBase {
   SmoothingFilter smoothing;
   SmoothingFilter smoothingY;
+  bool valid = false;
   uint8_t pinX;
   uint8_t pinY;
 
@@ -53,13 +55,15 @@ public:
   void begin() override {
     smoothing.reset();
     smoothingY.reset();
-    analogSetPinAttenuation(pinX, ADC_11db);
-    analogSetPinAttenuation(pinY, ADC_11db);
+    analogSampler.addPin(pinX);
+    analogSampler.addPin(pinY);
   }
 
   void read() override {
-    rawX = analogRead(pinX);
-    rawY = analogRead(pinY);
+    valid = analogSampler.ready(pinX) && analogSampler.ready(pinY);
+    if (!valid) { smoothing.reset(); smoothingY.reset(); return; }
+    rawX = analogSampler.read(pinX);
+    rawY = analogSampler.read(pinY);
 
     const float nX = normalizeAxis(rawX, midCutoff, edgeCutoff);
     const float nY = normalizeAxis(rawY, midCutoff, edgeCutoff);
@@ -75,17 +79,20 @@ public:
     json += "\"type\":\"joystick\",\"port\":";
     appendQuoted(json, portId);
 
-    json += ",\"raw\":{\"x\":";
-    json += rawX;
-    json += ",\"y\":";
-    json += rawY;
-    json += "}";
-
-    json += ",\"value\":{\"x\":";
-    appendFloat(json, valueX);
-    json += ",\"y\":";
-    appendFloat(json, valueY);
-    json += "}";
+    if (valid) {
+      json += ",\"raw\":{\"x\":";
+      json += rawX;
+      json += ",\"y\":";
+      json += rawY;
+      json += "}";
+      json += ",\"value\":{\"x\":";
+      appendFloat(json, valueX);
+      json += ",\"y\":";
+      appendFloat(json, valueY);
+      json += "}";
+    } else {
+      json += ",\"raw\":null,\"value\":null,\"error\":\"adc_not_ready\"";
+    }
 
     json += ",\"midCutoff\":";
     json += midCutoff;

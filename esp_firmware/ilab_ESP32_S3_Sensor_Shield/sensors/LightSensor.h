@@ -1,11 +1,13 @@
 #pragma once
 #include "SensorBase.h"
+#include "../runtime/AnalogSampler.h"
 #include "MappingUtils.h"
 #include "SmoothingFilter.h"
 
 class LightSensor : public SensorBase {
   SmoothingFilter smoothing;
   uint8_t pin;
+  bool valid = false;
   int rawAdc = 0;
   float value = 0.0f;
   float inMin;
@@ -24,12 +26,14 @@ public:
   void begin() override {
     smoothing.reset();
     analogReadResolution(12);
-    analogSetPinAttenuation(pin, ADC_11db);
+    analogSampler.addPin(pin);
     pinMode(pin, INPUT);
   }
 
   void read() override {
-    rawAdc = 4095 - analogRead(pin);
+    valid = analogSampler.ready(pin);
+    if (!valid) { smoothing.reset(); return; }
+    rawAdc = 4095 - analogSampler.read(pin);
     value = smoothing.update(mapClamped((float)rawAdc, inMin, inMax, outMin, outMax), millis(), smoothingMs);
   }
 
@@ -39,9 +43,10 @@ public:
     json += "\"type\":\"light\",\"port\":";
     appendQuoted(json, portId);
     json += ",\"raw\":";
-    json += rawAdc;
+    if (valid) json += rawAdc; else json += "null";
     json += ",\"value\":";
-    appendFloat(json, value);
+    if (valid) appendFloat(json, value); else json += "null";
+    if (!valid) json += ",\"error\":\"adc_not_ready\"";
     json += ",\"inMin\":";
     appendFloat(json, inMin);
     json += ",\"inMax\":";
