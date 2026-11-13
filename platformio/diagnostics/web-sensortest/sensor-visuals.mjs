@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-const source = fs.readFileSync(new URL('../js/sensor-visuals.js', import.meta.url), 'utf8');
+const source = fs.readFileSync(new URL('../../../web/sensortest/js/sensor-visuals.js', import.meta.url), 'utf8');
 const { visualState, normalize } = await import(`data:text/javascript;base64,${Buffer.from(source).toString('base64')}`);
 assert.equal(visualState({type:'button',value:0}).active,true);
 assert.equal(visualState({type:'switch',value:1}).active,false);

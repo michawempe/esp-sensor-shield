@@ -21,7 +21,9 @@ The upload script selects the native ESP32-S3 USB port (`303A:1001`) when one
 board is attached. To select it manually, add `--upload-port YOUR_PORT`.
 Use the native port rather than the board's CH343 port (`1A86:55D3`).
 
-Upload and monitor use 115200 baud. A normal upload preserves sensor settings.
+Upload and monitor are configured for 115200 baud. Sensor packets use native
+USB CDC; that baud setting does not determine the USB transfer rate or the
+sensor sample rates. A normal upload preserves sensor settings in NVS.
 After uploading, close the monitor and use the [web config editor](../web/README.md).
 
 If upload fails, hold **BOOT**, press and release **RESET**, then release
@@ -39,7 +41,7 @@ new dependencies in `lib_deps`. Functions must be declared before use.
 
 ## Diagnostics
 
-- `sensor-shield`: normal firmware, 50 Hz output.
+- `sensor-shield`: normal firmware, target packet rate 50 Hz (20 ms interval).
 - `sensor-shield-diagnostics`: distance sensor logs.
 - `sensor-shield-stress`: temporary rate/config commands and timing counters.
 

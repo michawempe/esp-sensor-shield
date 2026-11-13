@@ -1,2 +1,9 @@
 .idea
 .DS_Store
+
+# Local agent state, editor settings and Python caches.
+.codex/
+.agents/
+.vscode/
+__pycache__/
+*.pyc
